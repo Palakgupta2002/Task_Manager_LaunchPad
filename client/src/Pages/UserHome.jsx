@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
-import UserData from '../components/UserData'
+import UserData from '../CustomHooks/UserData'
 import { EmailContext } from '../App';
-import useUserData from '../components/UserData';
+import useUserData from '../CustomHooks/UserData';
 import { Link } from 'react-router-dom';
 import Profile from '../components/Profile';
 import Header from '../components/Header';

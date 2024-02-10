@@ -1,11 +1,13 @@
 import React from 'react'
+import AdminPageUser from '../components/AdminPageUser'
 
 const AdminHome = () => {
   return (
     <div>
-        AdminHome
-        
-
+       <div>sorting functionality</div>
+       <div>
+        <AdminPageUser/>
+       </div>
     </div>
   )
 }

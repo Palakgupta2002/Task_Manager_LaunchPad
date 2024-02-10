@@ -1,6 +1,9 @@
 import React from 'react';
 
 const TaskCard = ({ tasks, onCheckboxChange, onDelete }) => {
+    if (!tasks) {
+        return null; // Render nothing if task is undefined
+    }
   return (
     <div className="bg-white rounded-lg shadow-md p-4 mb-4 w-fit">
       <h3 className="text-lg font-semibold mb-2">{tasks.title}</h3>
