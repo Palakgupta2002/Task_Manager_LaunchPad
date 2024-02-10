@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { EmailContext } from '../App';
 
 const AdminLogin = () => {
+    const {setAdminLog}=useContext(EmailContext);
   const [formData, setFormData] = useState({
     adminEmail: '',
     password: ''
@@ -25,6 +27,7 @@ const AdminLogin = () => {
       
       if (response.ok) {
         // Redirect or handle successful login
+        setAdminLog(true)
         navigate('/AdminHome')
 
         console.log('Login successful');
