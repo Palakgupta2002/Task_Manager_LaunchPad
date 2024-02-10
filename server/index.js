@@ -8,6 +8,7 @@ import task from "./Api/routes/task.js"
 import userData from "./Api/routes/userGet.js"
 import Admin from "./Api/routes/adminAuth.js"
 import getAllUser from "./Api/routes/allUserGet.js"
+import UserDelete from "./Api/routes/deleteUser.js"
 import dotenv from "dotenv"
 dotenv.config()
 
@@ -38,3 +39,7 @@ app.use("/user",userData)
 app.use("/admin",Admin)
 
 app.use('/allUser',getAllUser)
+
+app.use('/deleteUser',UserDelete)
+
+

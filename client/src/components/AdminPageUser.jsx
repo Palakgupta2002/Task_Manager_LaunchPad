@@ -11,7 +11,7 @@ const AdminPageUser = () => {
         <div className='flex flex-wrap m-8 gap-5'>
             {
                 userData && userData.map((ele)=>(
-                    <UsersCard user={ele} />
+                    <UsersCard key={ele.id} user={ele} />
                 ))
             }
             

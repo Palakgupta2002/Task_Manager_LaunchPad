@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Button, Modal } from 'flowbite-react';
 
-const TaskCard = ({ tasks, onCheckboxChange, onDelete }) => {
+const TaskCard = ({ tasks, onCheckboxChange }) => {
+    const [openModal, setOpenModal] = useState(false);
     if (!tasks) {
         return null; // Render nothing if task is undefined
     }
@@ -14,17 +16,39 @@ const TaskCard = ({ tasks, onCheckboxChange, onDelete }) => {
             type="checkbox"
             id={`task-${tasks.id}`}
             checked={tasks.completed}
-            onChange={() => onCheckboxChange(tasks.id)}
             className="mr-2"
           />
           <label htmlFor={`task-${tasks.id}`} className="text-sm text-gray-700">Completed</label>
         </div>
         <button
-          onClick={() => onDelete(tasks.id)}
           className="text-sm text-red-600 hover:text-red-700 focus:outline-none"
         >
           Delete
         </button>
+        <>
+      <button onClick={() => setOpenModal(true)}>see details</button>
+      <Modal show={openModal} size="md" onClose={() => setOpenModal(false)} popup>
+        <Modal.Header />
+        <Modal.Body>
+          <div className="text-center">
+            <div>
+               {tasks.title} 
+               {tasks.description}
+            </div>
+            
+            <div className="flex justify-center gap-4">
+              <Button color="failure" onClick={() => setOpenModal(false)}>
+                {"Yes, I'm sure"}
+              </Button>
+              <Button color="gray" onClick={() => setOpenModal(false)}>
+                No, cancel
+              </Button>
+            </div>
+          </div>
+        </Modal.Body>
+      </Modal>
+    </>
+
       </div>
     </div>
   );
