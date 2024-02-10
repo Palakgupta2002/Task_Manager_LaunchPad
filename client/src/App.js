@@ -6,6 +6,7 @@ import SignIn from './Pages/UserSignIn';
 import SignUp from './Pages/UserSignUp';
 import Home from './Pages/UserHome';
 import AdminLogin from './Pages/AdminLogin';
+import AdminHome from './Pages/AdminHome';
 
 export const EmailContext = createContext();
 
@@ -20,6 +21,7 @@ function App() {
       <Route path='/signIn' element={<SignIn/>}/>
       <Route path='/Home' element={<Home/>}/>
       <Route path='/AdminLogin' element={<AdminLogin/>}/>
+      <Route path='/AdminHome' element={<AdminHome/>} />
     </Routes>
     </BrowserRouter>
     </EmailContext.Provider>

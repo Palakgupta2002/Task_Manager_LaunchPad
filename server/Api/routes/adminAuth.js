@@ -1,45 +1,41 @@
-const express = require('express');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const { MongoClient } = require('mongodb');
+import express from "express"
+import { MongoClient } from "mongodb";
+import dotenv from "dotenv"
+dotenv.config()
 
  // MongoDB connection URI
-const client = new MongoClient(process.env.MONGO_);
+const client = new MongoClient(process.env.MONGO_URL);
 
 // Middleware to parse JSON request bodies
 const router = express.Router();
 
-// Add body-parser middleware to parse request bodies
-router.use(bodyParser.json());
 
 // Route for admin login
-router.post('/admin/login', async (req, res) => {
-    const { username, password } = req.body;
+router.post('/Adlogin', async (req, res) => {
+    const { adminEmail, password } = req.body;
 
     try {
         // Connect to MongoDB
         await client.connect();
-        const database = client.db('');
+        const database = client.db('test');
         const adminCollection = database.collection('Admin');
 
         // Query admin collection for the provided username
-        const admin = await adminCollection.findOne({ username });
+        const admin = await adminCollection.findOne({ adminEmail });
 
         if (!admin) {
             return res.status(401).json({ message: 'Invalid username or password' });
         }
 
         // Compare passwords
-        const isPasswordValid = await bcrypt.compare(password, admin.password);
+       
 
-        if (!isPasswordValid) {
+        if (!password) {
             return res.status(401).json({ message: 'Invalid username or password' });
         }
 
-        // Generate JWT token
-        const token = jwt.sign({ id: admin._id, username: admin.username }, 'your_secret_key', { expiresIn: '1h' });
 
-        res.json({ token });
+        res.json("Admin login succesfully");
     } catch (error) {
         console.error('Error logging in:', error);
         res.status(500).json({ message: 'Internal server error' });
@@ -48,4 +44,5 @@ router.post('/admin/login', async (req, res) => {
         await client.close();
     }
 });
+export default router
 

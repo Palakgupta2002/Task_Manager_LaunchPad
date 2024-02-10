@@ -6,8 +6,11 @@ import auth from "./Api/routes/auth.js"
 import existingAuth from "./Api/routes/existingAuth.js"
 import task from "./Api/routes/task.js"
 import userData from "./Api/routes/userGet.js"
+import Admin from "./Api/routes/adminAuth.js"
+import dotenv from "dotenv"
+dotenv.config()
 
-mongoose.connect("mongodb+srv://shanvig819:Palak@cluster0.rg4ioyz.mongodb.net/?retryWrites=true&w=majority")
+mongoose.connect(process.env.MONGO_URL)
 .then(()=>{
     console.log("mongodb is connected")
 }).catch(err=>console.log("something wrong"))
@@ -30,3 +33,5 @@ app.use("/login",existingAuth)
 app.use("/task",task)
 
 app.use("/user",userData)
+
+app.use("/admin",Admin)
