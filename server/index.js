@@ -11,6 +11,7 @@ import getAllUser from "./Api/routes/allUserGet.js"
 import UserDelete from "./Api/routes/deleteUser.js"
 import UpdateUserTask from "./Api/routes/taskComplete.js"
 import deleteTask from "./Api/routes/taskDelete.js"
+import updateTask from "./Api/routes/updateTask.js"
 import dotenv from "dotenv"
 dotenv.config()
 
@@ -48,3 +49,4 @@ app.use('/updateTask',UpdateUserTask)
 
 app.use('/deleteTask',deleteTask)
 
+app.use('/updateTask',updateTask)

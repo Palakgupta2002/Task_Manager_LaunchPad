@@ -4,7 +4,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { EmailContext } from '../App';
 
-const TaskForm = ({setOpenModal}) => {
+const TaskForm = ({setOpenModal,tasks}) => {
     const { email } = useContext(EmailContext);
 
   const [formData, setFormData] = useState({
