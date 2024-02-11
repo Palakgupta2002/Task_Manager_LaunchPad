@@ -12,7 +12,7 @@ const UsersCard = ({ user }) => {
     const handleDelete = async () => {
         try {
             await deleteUser(user.email);
-            console.log("User deleted successfully");
+            // console.log("User deleted successfully");
         } catch (error) {
             console.error("Error deleting user:", error);
             // Handle error if needed
@@ -32,12 +32,12 @@ const UsersCard = ({ user }) => {
                     <p className="text-sm text-gray-600">{user.email}</p>
                 </div>
             </div>
-            <div className='flex'>
+            <div className='flex justify-between'>
                 <Link to={`/adUserVisit/${user.email}`}>
                     <button className="text-blue-500 hover:text-blue-700">See Details</button>
                 </Link>
                 
-                 <button onClick={handleDelete}>Delete User</button>
+                 <button className='text-red-400' onClick={handleDelete}>Delete User</button>
                 
             </div>
         </div>

@@ -5,7 +5,7 @@ import UsersCard from './UsersCard';
 const AdminPageUser = () => {
     const userData = useGetAllUserData();
 
-    console.log(userData, "hello userdata");
+    // console.log(userData, "hello userdata");
 
     return (
         <div className='flex flex-wrap m-8 gap-5'>

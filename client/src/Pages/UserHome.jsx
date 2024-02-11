@@ -8,10 +8,10 @@ import Header from '../components/Header';
 import TaskMap from '../components/TaskMap';
 
 const Home = () => {
-  console.log(UserData,"hello")
+  // console.log(UserData,"hello")
   const { email } = useContext(EmailContext); 
   const userData = useUserData(email);
-  console.log(userData,"hello")
+  // console.log(userData,"hello")
   return (
     <div>
    <Header/>

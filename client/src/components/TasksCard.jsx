@@ -68,7 +68,7 @@ const TaskCard = ({ tasks }) => {
     e.preventDefault();
     
     try {
-      const response = await fetch(`http://localhost:5000/updateTask/${tasks._id}`, {
+      const response = await fetch(`http://localhost:5000/updateTaskID/${tasks.email}/tasks/${tasks._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
@@ -79,7 +79,6 @@ const TaskCard = ({ tasks }) => {
       if (!response.ok) {
         throw new Error('Failed to update task');
       }
-
       // Handle success response here
       console.log('Task updated successfully');
     } catch (error) {

@@ -11,6 +11,7 @@ const router = express.Router();
 
 
 // Route for admin login
+// Route for admin login
 router.post('/Adlogin', async (req, res) => {
     const { adminEmail, password } = req.body;
 
@@ -28,14 +29,11 @@ router.post('/Adlogin', async (req, res) => {
         }
 
         // Compare passwords
-       
-
-        if (!password) {
+        if (password !== admin.password) {
             return res.status(401).json({ message: 'Invalid username or password' });
         }
 
-
-        res.json("Admin login succesfully");
+        res.json("Admin login successfully");
     } catch (error) {
         console.error('Error logging in:', error);
         res.status(500).json({ message: 'Internal server error' });
@@ -44,5 +42,6 @@ router.post('/Adlogin', async (req, res) => {
         await client.close();
     }
 });
+
 export default router
 

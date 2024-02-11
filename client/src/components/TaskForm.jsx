@@ -39,7 +39,7 @@ const TaskForm = ({setOpenModal,tasks}) => {
         body: JSON.stringify(formData),
       });
       const data = await res.json();
-      console.log(res,"hello response task")
+      // console.log(res,"hello response task")
       if (res.ok) {
         setFormData({});
         setLoading(false);

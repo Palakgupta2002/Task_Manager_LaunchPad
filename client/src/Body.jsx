@@ -13,7 +13,7 @@ const Body = () => {
   const { email, adminLog } = useContext(EmailContext); // Use useContext correctly
 
   return (
-    <div>
+    <div className='background '>
       <BrowserRouter>
         <Routes>
           {email ? (
