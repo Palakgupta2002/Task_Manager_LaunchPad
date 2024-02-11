@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom';
 import deleteUser from '../CustomHooks/useDeleteUser';
 
 const UsersCard = ({ user }) => {
+  
+   
+
     const initials = user.username.substring(0, 2).toUpperCase();
      // Fetch delete user hook
 
@@ -33,7 +36,9 @@ const UsersCard = ({ user }) => {
                 <Link to={`/adUserVisit/${user.email}`}>
                     <button className="text-blue-500 hover:text-blue-700">See Details</button>
                 </Link>
-                <button onClick={handleDelete}>Delete User</button>
+                
+                 <button onClick={handleDelete}>Delete User</button>
+                
             </div>
         </div>
     );

@@ -18,7 +18,7 @@ const useGetAllUserData = () => {
             }
         };
         fetchData();
-    }, []);
+    }, [userData]);
 
     return userData;
 };

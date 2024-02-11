@@ -6,7 +6,7 @@ const TaskMap = ({userData}) => {
     <div className='flex mt-8 gap-7 flex-wrap justify-center'>
         {
            userData && userData.tasks.map((ele)=>(
-                <TasksCard tasks={ele} />
+                <TasksCard key={ele._id} tasks={ele} />
             ))
 
         }

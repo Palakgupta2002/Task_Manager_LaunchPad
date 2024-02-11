@@ -23,7 +23,7 @@ const useUserData = (email) => {
 
     // Fetch user data immediately when email changes
     fetchUserData();
-  }, [email]); // Ensure email is included in the dependency array
+  }, [email,userData]); // Ensure email is included in the dependency array
   return userData;
 };
 
