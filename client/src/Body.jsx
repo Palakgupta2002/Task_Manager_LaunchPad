@@ -10,7 +10,8 @@ import UserDetails from './Pages/UserDetails';
 import { EmailContext } from './App';
 
 const Body = () => {
-  const { email, adminLog } = useContext(EmailContext); // Use useContext correctly
+  const { email ,adminLog} = useContext(EmailContext); // Use useContext correctly
+ 
 
   return (
     <div className='background '>

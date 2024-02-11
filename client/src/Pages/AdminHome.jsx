@@ -1,8 +1,20 @@
-import React from 'react'
-import AdminPageUser from '../components/AdminPageUser'
-import HeaderAdmin from '../components/HeaderAdmin'
-// import { FaBeer } from "react-icons/fa";
+import React, { useState } from 'react';
+import AdminPageUser from '../components/AdminPageUser';
+import HeaderAdmin from '../components/HeaderAdmin';
+
 const AdminHome = () => {
+  const [sortBy, setSortBy] = useState('');
+  const [search, setSearch] = useState('');
+ 
+
+  const handleSortChange = (e) => {
+    setSortBy(e.target.value);
+  };
+
+  const handleChangeSearch = (e) => {
+    setSearch(e.target.value);
+  };
+
   return (
     <div>
       <HeaderAdmin />
@@ -12,20 +24,31 @@ const AdminHome = () => {
             type='text'
             className='w-full border border-gray-300 rounded-lg py-2 px-4 outline-none shadow-sm'
             placeholder='Search...'
+            value={search}
+            onChange={handleChangeSearch}
           />
-          <button className='absolute right-0 top-0 h-full px-4 text-gray-600 focus:outline-none'>
-           {/* <FaBeer/> */}
-           search
-          </button>
+    
         </div>
 
-        <div>select option</div>
+        <div>
+          <select
+            className='border border-gray-300 rounded-lg py-2 px-4 outline-none shadow-sm'
+            value={sortBy}
+            onChange={handleSortChange}
+          >
+            <option value=''>Sort By Name</option>
+            <option value='Asc'>Ascending</option>
+            <option value='Dsc'>Descending</option>
+          
+          </select>
+        
+        </div>
       </div>
       <div>
-        <AdminPageUser />
+        <AdminPageUser search={search} sortBy={sortBy} />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default AdminHome
+export default AdminHome;

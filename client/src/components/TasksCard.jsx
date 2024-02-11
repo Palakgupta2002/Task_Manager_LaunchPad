@@ -4,9 +4,13 @@ import deletetask from '../CustomHooks/deleteTask';
 import { useContext } from 'react';
 import { EmailContext } from '../App';
 import DatePicker from 'react-datepicker';
+import medium from "../assest/medium.svg"
+import low from "../assest/low.svg"
+import high from "../assest/high.svg"
 import 'react-datepicker/dist/react-datepicker.css';
 
 const TaskCard = ({ tasks }) => {
+  
   const { adminLog, email } = useContext(EmailContext);
   const [openModal, setOpenModal] = useState(false);
   const [formData, setFormData] = useState({
@@ -16,6 +20,22 @@ const TaskCard = ({ tasks }) => {
     dueDate: new Date(tasks.dueDate),
     email: email
   });
+  let priorityIcon = null;
+
+  // Determine which icon to use based on the priority
+  switch (tasks.priority) {
+    case 'low':
+      priorityIcon = low;
+      break;
+    case 'medium':
+      priorityIcon = medium;
+      break;
+    case 'high':
+      priorityIcon = high;
+      break;
+    default:
+      break;
+  }
 
 
 
@@ -89,10 +109,12 @@ const TaskCard = ({ tasks }) => {
 
   return (
     <div className="bg-white rounded-lg shadow-md p-4 mb-4 w-fit">
+      <div className='flex justify-between'>
       <h3 className="text-lg font-semibold mb-2">{tasks.title}</h3>
-      <p className="text-sm text-gray-600 mb-2">{tasks.description}</p>
-      <div className="flex justify-between items-center">
-        <div className="flex items-center">
+      {priorityIcon && <img src={priorityIcon} alt="Priority" width={"20px"} />}
+      </div>
+      <div className="flex justify-between items-center gap-3">
+        <div className="flex items-center ">
           <input
             type="checkbox"
             id={`task-${tasks.id}`}
@@ -112,7 +134,7 @@ const TaskCard = ({ tasks }) => {
           ''
         )}
         <>
-          <button onClick={() => setOpenModal(true)}>edit</button>
+          <button onClick={() => setOpenModal(true)}>Edit</button>
           <Modal show={openModal} size="md" onClose={() => setOpenModal(false)} popup>
             <Modal.Header />
             <Modal.Body>

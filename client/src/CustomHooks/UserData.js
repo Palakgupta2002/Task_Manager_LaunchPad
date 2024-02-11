@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 const useUserData = (email) => {
   const [userData, setUserData] = useState(null); // State to store user data
-
+console.log(email,"use data email")
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -22,7 +22,9 @@ const useUserData = (email) => {
     };
 
     // Fetch user data immediately when email changes
-    fetchUserData();
+
+    email!==null && fetchUserData();
+    
   }, [email,userData]); // Ensure email is included in the dependency array
   return userData;
 };

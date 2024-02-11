@@ -6,6 +6,9 @@ export const EmailContext = createContext();
 function App() {
   const [email, setEmail] = useState('');
   const [adminLog,setAdminLog]=useState(false);
+  localStorage.setItem('adminLog', true);
+  localStorage.setItem('email','')
+ 
   return (
     <div >
       
