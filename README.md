@@ -89,11 +89,9 @@ You're now ready to start developing! Make any necessary changes or enhancements
 These key features contribute to the functionality, usability, and security of the application, providing users with a seamless and secure experience.
 
 # ScreenShots:-
-[watch live](https://www.canva.com/design/DAF8jWoYxXw/dpPndZmc7QS4DqLcENDhIw/watch?utm_content=DAF8jWoYxXw&utm_campaign=share_your_design&utm_medium=link&utm_source=shareyourdesignpanel)
+[Watch the video ](https://www.canva.com/design/DAF8jWoYxXw/dpPndZmc7QS4DqLcENDhIw/watch?utm_content=DAF8jWoYxXw&utm_campaign=share_your_design&utm_medium=link&utm_source=shareyourdesignpanel)
   
- <video controls>
-  <source src="https://www.canva.com/design/DAF8jWoYxXw/dpPndZmc7QS4DqLcENDhIw/watch?utm_content=DAF8jWoYxXw&utm_campaign=share_your_design&utm_medium=link&utm_source=shareyourdesignpanel" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+# Thank you for your time to read it
+
 
    
