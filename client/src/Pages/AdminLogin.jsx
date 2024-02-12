@@ -39,7 +39,7 @@ const AdminLogin = () => {
         // Handle failed login
         setErrorMessage("invalid username or password")
         setLoading(false)
-        
+
         console.error('Login failed:', response.statusText);
       }
     } catch (error) {
@@ -48,7 +48,7 @@ const AdminLogin = () => {
       console.error('Error logging in:', error);
     }
     setLoading(false)
-    
+
   };
 
   return (
@@ -109,9 +109,9 @@ const AdminLogin = () => {
         </div>
         <div>
           <div className="bg-white shadow-md rounded-md p-6">
-          <div>
-            <h2 className="mt-2 text-center text-3xl font-extrabold text-gray-900 w-80">Admin </h2>
-          </div>
+            <div>
+              <h2 className="mt-2 text-center text-3xl font-extrabold text-gray-900 w-80">Admin </h2>
+            </div>
             <form onSubmit={handleSubmit}>
               <div className="rounded-md shadow-sm -space-y-px">
                 <div className="mt-5">
@@ -147,8 +147,8 @@ const AdminLogin = () => {
                 <h3 className='text-red-700 mt-2'>{errorMessage}</h3>
                 <button type="submit" disabled={loading} className="group relative w-full flex justify-center mt-6 py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                   {
-                    loading?
-                    "Loading": "Login"
+                    loading ?
+                      "Loading" : "Login"
                   }
                 </button>
               </div>

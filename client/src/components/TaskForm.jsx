@@ -4,15 +4,15 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { EmailContext } from '../App';
 
-const TaskForm = ({setOpenModal,email}) => {
-    // const { email } = useContext(EmailContext);
+const TaskForm = ({ setOpenModal, email }) => {
+  // const { email } = useContext(EmailContext);
 
   const [formData, setFormData] = useState({
     title: '',
     description: '',
     priority: 'medium',
     dueDate: new Date(),
-    email:email
+    email: email
   });
   const [errorMessage, setErrorMessage] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -29,7 +29,7 @@ const TaskForm = ({setOpenModal,email}) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     try {
       setLoading(true);
       setErrorMessage(null);

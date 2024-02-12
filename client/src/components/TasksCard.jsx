@@ -10,7 +10,7 @@ import high from "../assest/high.svg"
 import 'react-datepicker/dist/react-datepicker.css';
 
 const TaskCard = ({ tasks }) => {
-  
+
   const { adminLog, email } = useContext(EmailContext);
   const [openModal, setOpenModal] = useState(false);
   const [formData, setFormData] = useState({
@@ -86,7 +86,7 @@ const TaskCard = ({ tasks }) => {
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     try {
       const response = await fetch(`http://localhost:5000/updateTaskID/${tasks.email}/tasks/${tasks._id}`, {
         method: 'PUT',
@@ -110,8 +110,8 @@ const TaskCard = ({ tasks }) => {
   return (
     <div className="bg-white rounded-lg shadow-md p-4 mb-4 w-fit">
       <div className='flex justify-between'>
-      <h3 className="text-lg font-semibold mb-2">{tasks.title}</h3>
-      {priorityIcon && <img src={priorityIcon} alt="Priority" width={"20px"} />}
+        <h3 className="text-lg font-semibold mb-2">{tasks.title}</h3>
+        {priorityIcon && <img src={priorityIcon} alt="Priority" width={"20px"} />}
       </div>
       <div className="flex justify-between items-center gap-3">
         <div className="flex items-center ">
@@ -138,7 +138,7 @@ const TaskCard = ({ tasks }) => {
           <Modal show={openModal} size="md" onClose={() => setOpenModal(false)} popup>
             <Modal.Header />
             <Modal.Body>
-          
+
               <form onSubmit={handleSubmit} className="max-w-md mx-auto p-6 bg-white rounded-md shadow-md">
                 <div className="mb-4">
                   <label htmlFor="title" className="block text-gray-700 font-bold mb-2">Title:</label>
