@@ -108,7 +108,7 @@ const TaskCard = ({ tasks }) => {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-4 mb-4 w-fit">
+    <div className="bg-white rounded-lg shadow-md p-4 mb-4 w-fit h-fit">
       <div className='flex justify-between'>
         <h3 className="text-lg font-semibold mb-2">{tasks.title}</h3>
         {priorityIcon && <img src={priorityIcon} alt="Priority" width={"20px"} />}

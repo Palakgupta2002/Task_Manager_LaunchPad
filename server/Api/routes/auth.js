@@ -5,10 +5,9 @@ import User from "../models/User.js";
 
 const router = express.Router();
 
-// Add body-parser middleware to parse request bodies
 router.use(bodyParser.json());
 
-router.post('/signUp', async (req, res, next) => {
+router.post('/signUp', async (req, res) => {
     const { username, email, password } = req.body;
     if (!username || !email || !password || username === "" || email === "" || password === "") {
         console.log('all field are requires');

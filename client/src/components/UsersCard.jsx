@@ -20,7 +20,7 @@ const UsersCard = ({ user }) => {
     };
 
     return (
-        <div className="bg-white rounded-lg shadow-md p-4 mb-4 w-fit">
+        <div className="bg-white rounded-lg shadow-md p-4 mb-4 w-fit h-fit">
             <div className="flex items-center mb-2">
                 <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center mr-4">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-6 h-6 text-gray-600">

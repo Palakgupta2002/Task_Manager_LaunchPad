@@ -8,6 +8,7 @@ import AdminLogin from './Pages/AdminLogin';
 import AdminHome from './Pages/AdminHome';
 import UserDetails from './Pages/UserDetails';
 import { EmailContext } from './App';
+import ManagerHome from './Pages/ManagerHome';
 
 const Body = () => {
   const { email ,adminLog} = useContext(EmailContext); // Use useContext correctly
@@ -25,6 +26,7 @@ const Body = () => {
           ) : (
             <>
               <Route path="/" element={<SignUp />} />
+              {/* <Route path='/' element={<ManagerHome/>} /> */}
               <Route path="/signIn" element={<SignIn />} />
               {adminLog ? (
                 <>

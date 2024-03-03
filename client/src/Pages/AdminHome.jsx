@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import AdminPageUser from '../components/AdminPageUser';
 import HeaderAdmin from '../components/HeaderAdmin';
+import { Button } from 'flowbite-react';
+import AddManager from '../components/AddManager';
 
 const AdminHome = () => {
   const [sortBy, setSortBy] = useState('');
@@ -43,10 +45,11 @@ const AdminHome = () => {
           </select>
         
         </div>
+        <div><AddManager/></div>
       </div>
-      <div>
+      {/* <div>
         <AdminPageUser search={search} sortBy={sortBy} />
-      </div>
+      </div> */}
     </div>
   );
 };
