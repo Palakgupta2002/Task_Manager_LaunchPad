@@ -9,6 +9,7 @@ import AdminHome from './Pages/AdminHome';
 import UserDetails from './Pages/UserDetails';
 import { EmailContext } from './App';
 import ManagerHome from './Pages/ManagerHome';
+import ViewManagerDetails from './components/ViewManagerDetails';
 
 const Body = () => {
   const { email ,adminLog} = useContext(EmailContext); // Use useContext correctly
@@ -32,6 +33,7 @@ const Body = () => {
                 <>
                   <Route path="/AdminHome" element={<AdminHome />} />
                   <Route path="/adUserVisit/:email" element={<UserDetails />} />
+                  <Route path='/viewManager/:id' element={<ViewManagerDetails/>}/>
                 </>
               ) : (
                 <Route path="/AdminLogin" element={<AdminLogin />} />

@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import TaskSchema from "./TaskSchema.js"; 
 
 const projectSchema = new mongoose.Schema({
     name: {
@@ -30,10 +31,10 @@ const projectSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
-    teamMembers: [String], 
-    notes: String
+    teamMembers: [String],
+    notes: String,
+    tasks: [TaskSchema.schema] 
 });
-
 
 const Project = mongoose.model('Project', projectSchema);
 

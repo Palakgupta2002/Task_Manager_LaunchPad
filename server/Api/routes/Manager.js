@@ -20,9 +20,9 @@ router.get('/getOneManager/:id', getManager, (req, res) => {
 // CREATE a manager
 router.post('/createManager', async (req, res) => {
   const manager = new Manager({
-    username: req.body.username,
-    email: req.body.email,
-    password: req.body.password
+    Musername: req.body.Musername,
+    Memail: req.body.Memail,
+    Mpassword: req.body.Mpassword
   });
 
   try {

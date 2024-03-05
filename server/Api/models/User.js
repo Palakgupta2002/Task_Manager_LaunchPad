@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import Task from "./TaskSchema.js"; // Import the TaskSchema
+import ProjectSchema from "./ProjectSchema.js"; // Import the ProjectSchema
 
 const userSchema = new mongoose.Schema({
     username: {
@@ -16,7 +16,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    tasks: [Task.schema] 
+    projects: [ProjectSchema.schema] 
 }, { timestamps: true });
 
 const User = mongoose.model('User', userSchema);

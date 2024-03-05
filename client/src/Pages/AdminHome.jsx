@@ -3,6 +3,7 @@ import AdminPageUser from '../components/AdminPageUser';
 import HeaderAdmin from '../components/HeaderAdmin';
 import { Button } from 'flowbite-react';
 import AddManager from '../components/AddManager';
+import ShowManager from '../components/ShowManager';
 
 const AdminHome = () => {
   const [sortBy, setSortBy] = useState('');
@@ -50,6 +51,9 @@ const AdminHome = () => {
       {/* <div>
         <AdminPageUser search={search} sortBy={sortBy} />
       </div> */}
+     <div className='w-full border-2px border-solid border-red-700'>
+     <ShowManager/>
+     </div>
     </div>
   );
 };
