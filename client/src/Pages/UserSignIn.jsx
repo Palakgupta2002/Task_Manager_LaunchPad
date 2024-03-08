@@ -20,21 +20,47 @@ const SignIn = () => {
     try {
       setLoading(true);
       setErrorMessage(null);
-      const res = await fetch('http://localhost:5000/login/signIn', {
+      
+      const uniqueId = document.getElementById("unique-id").value;
+      const email = document.getElementById("email").value;
+      const password = formData.password;
+    
+      let apiUrl = '';
+      let bodyData = {};
+    
+      if (uniqueId.includes("manager")) {
+        apiUrl = `http://localhost:5000/ManagerData/login`;
+        bodyData = { Memail: email, Mpassword: password };
+      } else if (uniqueId.includes("user")) {
+        apiUrl = 'http://localhost:5000/login/signIn'; 
+        bodyData = { email, password };
+      } else {
+        setErrorMessage("Invalid unique id");
+        setLoading(false);
+        return;
+      }
+    
+      const res = await fetch(apiUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(bodyData),
       });
+    
       const data = await res.json();
       if (res.ok) {
-        // Set email using setEmail from context
-    
-        setEmail(formData.email);
+        // Handle success
+        setEmail(email);
+       if(uniqueId.includes("user"))
+       {
         navigate('/Home');
+       }
+       else{
+        navigate('/ManagerHome')
+       }
         console.log('Sign-in successful');
-        alert("Sign In succesfully")
-    
+        alert("Sign In successfully");
       } else {
+        // Handle error
         setErrorMessage(data.message);
       }
       setLoading(false);
@@ -44,6 +70,9 @@ const SignIn = () => {
       setLoading(false);
     }
   };
+  
+  
+  
 
   return (
     <div className="flex justify-center mt-20 ">
@@ -55,6 +84,16 @@ const SignIn = () => {
         <div className='bg-white shadow-md rounded-md  max-w-md mx-auto p-6'>
           <h2 className="text-2xl font-semibold mb-4">Sign In</h2>
           <form onSubmit={handleSubmit} className="space-y-4">
+            <div>
+              <label htmlFor="unique-id" className="block text-sm font-medium text-gray-700">Unique id:</label>
+              <input
+                type="text"
+                id="unique-id"
+                name="unique-id"
+                required
+                className="mt-1 p-2 block w-full border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              />
+            </div>
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email:</label>
               <input

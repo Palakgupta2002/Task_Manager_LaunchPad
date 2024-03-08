@@ -12,17 +12,17 @@ const Home = () => {
   // console.log(UserData,"hello")
   const { email } = useContext(EmailContext); 
   const userData = useUserData(email);
-  // console.log(userData,"hello")
   return (
     <div>
    <Header/>
      <div className='flex'>
      <div className='flex h-fit '>
-      <TaskMap userData={userData} />
+      {/* <TaskMap userData={userData} /> */}
+      {userData?.username}
      </div>
-     <div className='border-2 border-solid border-red-500 p-10'>
+     {/* <div className='border-2 border-solid border-red-500 p-10'>
         <ChatFunctionality/>
-        </div>
+        </div> */}
      </div>
     </div>
   )

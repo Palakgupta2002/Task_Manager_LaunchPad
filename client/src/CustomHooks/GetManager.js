@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-const useUserData = (email) => {
+const useManagerData = (email) => {
   const [userData, setUserData] = useState(null) // State to store user data
   console.log(email, 'use data email')
 
@@ -8,26 +8,23 @@ const useUserData = (email) => {
     const fetchUserData = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/user/users/${email}`,
+          `http://localhost:5000/ManagerData/getOneManager/${email}`,
         )
         if (response.ok) {
           const data = await response.json()
-          setUserData(data) // Set user data in state
+          setUserData(data) 
         } else {
           console.error('Error fetching user data:', response.status)
-          // Handle error case if needed
+          
         }
       } catch (error) {
         console.error('Error fetching user data:', error)
-        // Handle error case if needed
+       
       }
     }
-
-    // Fetch user data immediately when email changes
-
     email !== null && fetchUserData()
-  }, [email]) // Ensure email is included in the dependency array
+  }, [email]) 
   return userData
 }
 
-export default useUserData
+export default useManagerData

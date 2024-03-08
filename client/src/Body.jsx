@@ -23,11 +23,11 @@ const Body = () => {
             <>
               <Route path="/" element={<Navigate to="/Home" />} />
               <Route path="/Home" element={<Home />} />
+              <Route path='/ManagerHome' element={<ManagerHome/>} />
             </>
           ) : (
             <>
               <Route path="/" element={<SignUp />} />
-              {/* <Route path='/' element={<ManagerHome/>} /> */}
               <Route path="/signIn" element={<SignIn />} />
               {adminLog ? (
                 <>
