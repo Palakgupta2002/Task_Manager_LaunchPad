@@ -17,7 +17,7 @@ const managerSchema = new mongoose.Schema({
     },
     MUniqueID: {
         type: String,
-        unique: true // Ensure uniqueness of the MUniqueID
+        unique: true 
     },
     createdAt: {
         type: Date,

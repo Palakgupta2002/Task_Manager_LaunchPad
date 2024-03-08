@@ -27,10 +27,6 @@ const projectSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    teamMemberCount: {
-        type: Number,
-        default: 0
-    },
     teamMembers: [String],
     notes: String,
     tasks: [TaskSchema.schema] 

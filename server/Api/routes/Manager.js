@@ -12,12 +12,26 @@ router.get('/', async (req, res) => {
   }
 });
 
-// GET one manager
-router.get('/getOneManager/:id', getManager, (req, res) => {
-  res.json(res.manager);
+
+router.get('/getOneManager/:Memail', async (req, res) => {
+  const { Memail } = req.params;
+
+  try {
+    const manager = await Manager.findOne({ Memail });
+
+    if (!manager) {
+      return res.status(404).json({ message: 'Manager not found' });
+    }
+
+    return res.json(manager);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: 'Internal server error' });
+  }
 });
 
-// CREATE a manager
+
+
 router.post('/createManager', async (req, res) => {
   const manager = new Manager({
     Musername: req.body.Musername,
@@ -67,23 +81,17 @@ router.post('/login', async (req, res) => {
     const { Memail, Mpassword } = req.body;
 
     try {
-        // Check if the manager exists in the database
+    
         const manager = await Manager.findOne({ Memail });
         if (!manager) {
             return res.status(401).json({ message: 'Invalid email or password' });
-        }
-
-        // Compare the provided password with the hashed password stored in the database
-        const isPasswordValid = await bcrypt.compare(Mpassword, manager.Mpassword);
-        if (!isPasswordValid) {
+        } 
+        if (!Mpassword) {
             return res.status(401).json({ message: 'Invalid email or password' });
         }
 
-        // If credentials are valid, generate a JWT token
-        const token = jwt.sign({ id: manager._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-
-        // Return the token to the client
-        res.json({ token });
+      
+        res.json({ manager });
     } catch (error) {
         console.error('Error during manager login:', error);
         res.status(500).json({ message: 'Internal server error' });
