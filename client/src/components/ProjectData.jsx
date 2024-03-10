@@ -1,5 +1,6 @@
 import React, { useEffect, useContext, useState } from 'react';
 import { EmailContext } from '../App';
+import { Link } from 'react-router-dom';
 
 const ProjectData = () => {
     const { email } = useContext(EmailContext);
@@ -23,6 +24,8 @@ const ProjectData = () => {
         fetchData();
     }, [projects]);
 
+
+
     return (
         <div className='border-2 border-solid border-red-400 w-full'>
             <h2>Projects</h2>
@@ -45,7 +48,11 @@ const ProjectData = () => {
                             <td>{project.startDate}</td>
                             <td>{project.endDate}</td>
                             <td>{project.priority}</td>
-                            <td><button>See details</button></td>
+                            <td>
+                                <Link to={`/Projectdetails/${project._id}`}>
+                                <button>See details</button>
+                                </Link>
+                            </td>
                         </tr>
                     ))}
                 </tbody>

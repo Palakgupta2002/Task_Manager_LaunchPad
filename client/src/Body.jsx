@@ -10,6 +10,7 @@ import UserDetails from './Pages/UserDetails';
 import { EmailContext } from './App';
 import ManagerHome from './Pages/ManagerHome';
 import ViewManagerDetails from './components/ViewManagerDetails';
+import ProjectDetails from './components/ProjectDetails';
 
 const Body = () => {
   const { email ,adminLog} = useContext(EmailContext); // Use useContext correctly
@@ -24,6 +25,7 @@ const Body = () => {
               <Route path="/" element={<Navigate to="/Home" />} />
               <Route path="/Home" element={<Home />} />
               <Route path='/ManagerHome' element={<ManagerHome/>} />
+              <Route path='/Projectdetails/:id' element={<ProjectDetails/>}/>
             </>
           ) : (
             <>
