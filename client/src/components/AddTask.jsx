@@ -5,7 +5,7 @@ import { Button, Modal } from 'flowbite-react';
 import { useState } from 'react';
 import TaskForm from './TaskForm';
 
-const AddTask=({email1})=> {
+const AddTask=({email1,projectId})=> {
   const [openModal, setOpenModal] = useState(false);
   console.log(email1,"hello email 1")
 
@@ -18,7 +18,7 @@ const AddTask=({email1})=> {
           <div className="text-center">
             <h3>Add your task</h3>
             <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-              <TaskForm setOpenModal={setOpenModal} email={email1}/>
+              <TaskForm setOpenModal={setOpenModal} email={email1} projectId={projectId}/>
             </h3>
             {/* <div className="flex justify-center gap-4">
               <Button color="failure" onClick={() => setOpenModal(false)}>

@@ -1,12 +1,15 @@
 import express from "express"
 import Project from "../models/ProjectSchema.js"
+import User from "../models/User.js"; 
 
 const router = express.Router();
 
-router.post('/CreateProject',async(req,res)=>{
-    try{
-        const {description,endDate,managerName,name,notes,priority,startDate,teamMembers}=req.body;
-        const newProject=new Project({
+router.post('/CreateProject', async (req, res) => {
+    try {
+        const { description, endDate, managerName, name, notes, priority, startDate, teamMembers } = req.body;
+
+        // Create a new project
+        const newProject = new Project({
             description,
             endDate,
             managerName,
@@ -15,16 +18,29 @@ router.post('/CreateProject',async(req,res)=>{
             priority,
             startDate,
             teamMembers
-        })
+        });
+        const users = await User.find({ email: { $in: teamMembers } });
         await newProject.save()
+        
+        
+        if (!users.length) {
+            return res.status(404).json({ message: 'Users not found for the given emails' });
+        }
+
+        await Promise.all(users.map(async (user) => {
+            user.projects.push(newProject);
+           
+            await user.save();
+        }));
+
         return res.status(201).json({ message: 'Project created successfully', Project: newProject });
 
-    }catch(error){
-        console.error('Error creating task:', error);
+    } catch (error) {
+        console.error('Error creating project:', error);
         return res.status(500).json({ message: 'Internal server error' });
     }
-
 })
+
 router.get('/getProject/:Musername', async (req, res) => {
     const { Musername } = req.params;
     try {

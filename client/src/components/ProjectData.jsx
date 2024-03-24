@@ -1,11 +1,11 @@
 import React, { useEffect, useContext, useState } from 'react';
 import { EmailContext } from '../App';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import { Table } from 'flowbite-react';
+import Example from './PieChart';
 
-const ProjectData = () => {
-    const { email } = useContext(EmailContext);
+const ProjectData = ({email}) => {
     const [projects, setProjects] = useState([]);
-
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -27,36 +27,41 @@ const ProjectData = () => {
 
 
     return (
-        <div className='border-2 border-solid border-red-400 w-full'>
-            <h2>Projects</h2>
-            <table className='border-2 border-solid border-green-400 w-full text-center'>
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Start Date</th>
-                        <th>End Date</th>
-                        <th>Priority</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
+        <div className="overflow-x-auto">
+            <Table hoverable>
+                <Table.Head>
+                    <Table.HeadCell>Project Name</Table.HeadCell>
+                    <Table.HeadCell>Description</Table.HeadCell>
+                    <Table.HeadCell>Start Date</Table.HeadCell>
+                    <Table.HeadCell>End Date</Table.HeadCell>
+                    <Table.HeadCell>Priority</Table.HeadCell>
+                    <Table.HeadCell>Action</Table.HeadCell>
+                    <Table.HeadCell>
+                        <span className="sr-only">Edit</span>
+                    </Table.HeadCell>
+                </Table.Head>
+        
+                <Table.Body className="divide-y">
                     {projects.map(project => (
-                        <tr key={project._id}>
-                            <td>{project.name}</td>
-                            <td>{project.description}</td>
-                            <td>{project.startDate}</td>
-                            <td>{project.endDate}</td>
-                            <td>{project.priority}</td>
-                            <td>
+                        <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800" key={project._id}>
+                            <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                            {project.name}
+                            </Table.Cell>
+                            <Table.Cell>{project.description}</Table.Cell>
+                            <Table.Cell>{project.startDate.slice(0,10)}</Table.Cell>
+                            <Table.Cell>{project.endDate.slice(0,10)}</Table.Cell>
+                            <Table.Cell>{project.priority}</Table.Cell>
+                            
+                            <Table.Cell>
                                 <Link to={`/Projectdetails/${project._id}`}>
-                                <button>See details</button>
+                                    <button>See details</button>
                                 </Link>
-                            </td>
-                        </tr>
+                            </Table.Cell>
+                        </Table.Row>
                     ))}
-                </tbody>
-            </table>
+                </Table.Body>
+            </Table>
+            
         </div>
     );
 };

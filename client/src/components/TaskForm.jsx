@@ -4,7 +4,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { EmailContext } from '../App';
 
-const TaskForm = ({ setOpenModal, email }) => {
+const TaskForm = ({ setOpenModal, email,projectId}) => {
   // const { email } = useContext(EmailContext);
 
   const [formData, setFormData] = useState({
@@ -33,7 +33,7 @@ const TaskForm = ({ setOpenModal, email }) => {
     try {
       setLoading(true);
       setErrorMessage(null);
-      const res = await fetch('http://localhost:5000/task/tasks', {
+      const res = await fetch(`http://localhost:5000/task/${email}/${projectId}/tasks`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),

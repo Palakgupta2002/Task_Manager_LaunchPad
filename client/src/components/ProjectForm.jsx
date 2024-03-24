@@ -88,13 +88,13 @@ const ProjectForm = () => {
       <label htmlFor="teamMembers" className="block mb-2">Team Members:</label>
       <div className="">
         {userData && userData.map((user) => (
-          <div key={user.id} className="flex items-center justify-between">
+          <div key={user._id} className="flex items-center justify-between">
             <div>
               <input
                 type="checkbox"
                 id={user.id}
                 name="teamMembers"
-                value={user._id}
+                value={user.email}
                 onChange={handleChange}
                 className="form-checkbox h-5 w-5 text-blue-600"
               />

@@ -36,6 +36,7 @@ const Body = () => {
                   <Route path="/AdminHome" element={<AdminHome />} />
                   <Route path="/adUserVisit/:email" element={<UserDetails />} />
                   <Route path='/viewManager/:id' element={<ViewManagerDetails/>}/>
+                  <Route path='/Projectdetails/:id' element={<ProjectDetails/>}/>
                 </>
               ) : (
                 <Route path="/AdminLogin" element={<AdminLogin />} />
