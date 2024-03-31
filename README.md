@@ -3,7 +3,7 @@
 
 # Project Overview
 
-This project is a full-stack task management application developed as part of an assignment by the Launchpad organization. It consists of two main dashboards: one for users and another for admins.
+This project is a full-stack task management application . It consists of two main dashboards: one for users and another for admins.
 
 ## User Dashboard Features
 
