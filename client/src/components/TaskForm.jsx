@@ -12,7 +12,8 @@ const TaskForm = ({ setOpenModal, email,projectId}) => {
     description: '',
     priority: 'medium',
     dueDate: new Date(),
-    email: email
+    email: email,
+    status1:'todo'
   });
   const [errorMessage, setErrorMessage] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -53,6 +54,7 @@ const TaskForm = ({ setOpenModal, email,projectId}) => {
       setLoading(false);
     }
   };
+  console.log(formData,"hello")
 
   return (
     <div className="bg-white rounded-lg p-6 md:p-8 lg:p-10">
@@ -94,6 +96,23 @@ const TaskForm = ({ setOpenModal, email,projectId}) => {
             <option value="low">Low</option>
             <option value="medium">Medium</option>
             <option value="high">High</option>
+          </select>
+        </div>
+        <div className="mb-4">
+          <label className="block text-sm md:text-base lg:text-lg font-medium text-gray-700" htmlFor="priority">Status:</label>
+          <select
+            id="status1"
+            name="status1"
+            value={formData.status}
+            onChange={handleChange}
+            required
+            className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+          >
+            {/* 'todo', 'completed', 'in progress', 'blocked' */}
+            <option value="todo">Todo</option>
+            <option value="in progress">in progress</option>
+            <option value="completed">completed</option>
+            <option value="blocked">blocked</option>
           </select>
         </div>
         <div className="mb-4">

@@ -5,6 +5,7 @@ import HeaderAdmin from './HeaderAdmin';
 import { Button, Modal } from 'flowbite-react';
 import AddTask from './AddTask';
 import Piechart from './PieChart';
+import KanbanBoard from './KanbanBoard';
 
 const ProjectDetails = () => {
     const [projectData, setProjectData] = useState({});
@@ -84,7 +85,7 @@ const ProjectDetails = () => {
                     </div>
                 ))}
             </div>
-            <Piechart/>
+           <KanbanBoard  />
         </div>
     );
 };
