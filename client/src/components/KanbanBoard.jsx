@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import "../App.css"
 import { useParams } from 'react-router-dom';
 import KanbanBoardCard from './KanbanBoardCard';
+import todo from "../assest/todo.svg"
+import progress from "../assest/in-progress.svg"
+import blocked from "../assest/blocked.svg"
+import complete from "../assest/completed.svg"
+import plus from "../assest/plus.svg"
+import KanabanHeader from './KanabanHeader';
 
 const KanbanBoard = () => {
   const { id } = useParams();
@@ -44,43 +51,71 @@ const KanbanBoard = () => {
   }, [taskData]);
 
   return (
-    <div className="kanban-board flex justify-between m-9">
+   <div className='w-fit m-9'>
+    <KanabanHeader/>
+     <div className="kanban-board overflow-visible flex justify-between boxshadow p-11">
       <div className="column">
-        <h3>To Do</h3>
+       <div className=' kanbanClmHdr flex justify-between'>
+        <div className='flex gap-2'>
+          <img src={todo} alt='todo' width={"20px"} />
+          <div>todo</div>
+          <div>{groupedTasks?.todo?.length || 0}</div>
+        </div>
+        <img src={plus} alt='Add' width={"20px"} />
+       </div>
         {groupedTasks?.todo?.map(task => (
-          <div key={task._id} className="task">
+          <div key={task._id} className="task mt-5 p-5">
             <KanbanBoardCard task={task} />
           </div>
         ))}
       </div>
-      <div className="column">
-        <h3>In Progress</h3>
+      <div className="column  w-fit">
+      <div className='kanbanClmHdr  flex justify-between'>
+        <div className='flex gap-2'>
+        <img src={progress} alt='progress' width={"20px"} />
+          <div>In progress</div>
+          <div>{groupedTasks?.inProgress?.length || 0}</div>
+        </div>
+        <img src={plus} alt='add' width={"20px"} />
+       </div>
         {groupedTasks?.inProgress?.map(task => (
-          <div key={task._id} className="task border-2 border-solid border-neutral-400 p-5">
-            {task.title}
-            <p>Priority: {task.priority}</p>
+          <div key={task._id} className="task  mt-5 p-5">
+          <KanbanBoardCard task={task} />
           </div>
         ))}
       </div>
       <div className="column">
-        <h3>Completed</h3>
+      <div className='kanbanClmHdr flex justify-between'>
+        <div className='flex gap-2'>
+        <img src={complete} alt='complete' width={"20px"} />
+          <div>Priority</div>
+          <div>{groupedTasks?.priority?.length || 0}</div>
+        </div>
+        <img src={plus} alt='add' width={"20px"} />
+       </div>
         {groupedTasks?.completed?.map(task => (
-          <div key={task._id} className="task border-2 border-solid border-neutral-400 p-5">
-            {task.title}
-            <p>Priority: {task.priority}</p>
+          <div key={task._id} className="task  mt-5 p-5">
+           <KanbanBoardCard task={task} />
           </div>
         ))}
       </div>
       <div className="column">
-        <h3>Blocked</h3>
+      <div className='kanbanClmHdr flex gap-5'>
+        <div className='flex gap-2'>
+        <img src={blocked} alt='blocked' width={"20px"} />
+          <div>Blocked</div>
+          <div>{groupedTasks?.blocked?.length || 0}</div>
+        </div>
+        <img src={plus} alt='add' width={"20px"} />
+       </div>
         {groupedTasks?.blocked?.map(task => (
-          <div key={task._id} className="task border-2 border-solid border-neutral-400 p-5">
-            {task.title}
-            <p>Priority: {task.priority}</p>
+          <div key={task._id} className="task  mt-5 p-5">
+            <KanbanBoardCard task={task} />
           </div>
         ))}
       </div>
     </div>
+   </div>
   );
 };
 

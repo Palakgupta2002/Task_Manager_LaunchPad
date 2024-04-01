@@ -49,7 +49,7 @@ const ProjectDetails = () => {
     }, [id]);
 
     return (
-        <div>
+        <div className='overflow-y-hidden'>
             {/* <HeaderAdmin /> */}
 
             {projectData && projectData.name}
