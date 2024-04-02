@@ -65,7 +65,7 @@ const ProjectForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-md mx-auto mt-8">
+    <form  onSubmit={handleSubmit} className="max-w-md mx-auto mt-8">
       <label htmlFor="name" className="block mb-2">Project Name:</label>
       <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} required className="w-full p-2 border border-gray-300 rounded mb-4" />
 

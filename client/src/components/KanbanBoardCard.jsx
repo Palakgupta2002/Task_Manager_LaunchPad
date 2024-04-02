@@ -21,7 +21,7 @@ const KanbanBoardCard = ({task}) => {
             return low;
         default:
             console.log('Unknown priority');
-            return null; // Return null or some default image if priority is unknown
+            return null; 
     }
   }
 

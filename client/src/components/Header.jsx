@@ -7,7 +7,7 @@ import { useContext } from "react";
 
 // import { GoSearch} from "react-icons/go";
 // import {FaMoon} from "react-icons/fa"
-const Header = () => {
+const Header = ({setGraphicalView,graphicalView}) => {
 
 const  {setEmail}=useContext(EmailContext)
 const handleEmailValue=()=>{
@@ -33,7 +33,7 @@ const handleEmailValue=()=>{
          <Navbar.Toggle/>
         </div>
         <Navbar.Collapse>
-          <Navbar.Link active={path==='/Home'} as={'div'}>
+          <Navbar.Link active={path==='/ManagerHome'} as={'div'}>
             <Link to='/Home'>
               Home
             </Link>
@@ -43,6 +43,7 @@ const handleEmailValue=()=>{
               Profile
             </Link>
           </Navbar.Link>
+        
          </Navbar.Collapse>
       </Navbar>
     </div>

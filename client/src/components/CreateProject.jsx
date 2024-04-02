@@ -7,7 +7,7 @@ const CreateProject = () => {
   return (
     <div>
     <Button onClick={() => setOpenModal(true)}>Create Project</Button>
-    <Modal show={openModal} size="md" onClose={() => setOpenModal(false)} popup>
+    <Modal  show={openModal} size="6xl" onClose={() => setOpenModal(false)} popup>
       <Modal.Header />
       <Modal.Body>
        <ProjectForm/>

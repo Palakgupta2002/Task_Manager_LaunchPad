@@ -29,8 +29,8 @@ const Body = () => {
             </>
           ) : (
             <>
-              <Route path="/" element={<SignUp />} />
-              <Route path="/signIn" element={<SignIn />} />
+              <Route path="/SignUp" element={<SignUp />} />
+              <Route path="/" element={<SignIn />} />
               {adminLog ? (
                 <>
                   <Route path="/AdminHome" element={<AdminHome />} />

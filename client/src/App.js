@@ -10,7 +10,7 @@ function App() {
   localStorage.setItem('email','')
  
   return (
-    <div >
+    <div className='' >
       
       <EmailContext.Provider value={{ email, setEmail,setAdminLog,adminLog }}>
       <Body/>

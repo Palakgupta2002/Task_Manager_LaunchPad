@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { EmailContext } from '../App';
+import UiImage from "../assest/toolfrontend.png"
 
 const SignIn = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
@@ -75,12 +76,13 @@ const SignIn = () => {
   
 
   return (
-    <div className="flex justify-center mt-20 ">
-      <div>
-        <div className=" flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white ml-16">
-          <img className="w-8 h-8 mr-2" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg" alt="logo" />
+    <div className="mt-20">
+       <div className=" flex justify-center items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white ">
+          <img className="w-8 h-8 " src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg" alt="logo" />
           Task Manager
         </div>
+    <div className='flex justify-center  '>
+    <div>
         <div className='bg-white shadow-md rounded-md  max-w-md mx-auto p-6'>
           <h2 className="text-2xl font-semibold mb-4">Sign In</h2>
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -127,20 +129,19 @@ const SignIn = () => {
               {loading ? 'Loading...' : 'Sign In'}
             </button>
           </form>
-          <div className='flex gap-7 mt-4'>
+          <div className=''>
             <Link to="/AdminLogin">
               <button className='text-blue-600'>
                 Login as Admin
               </button>
             </Link>
-            <Link to="/">
-              <button className='text-blue-600'>
-                don't have an account
-              </button>
-            </Link>
           </div>
         </div>
       </div>
+      <div className='shadow-md'>
+        <img src={UiImage} alt='uiImage'/>
+      </div>
+    </div>
 
     </div>
   );
