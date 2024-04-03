@@ -3,6 +3,7 @@ import { EmailContext } from '../App';
 import { Link, useParams } from 'react-router-dom';
 import { Table } from 'flowbite-react';
 import { PieChart, Pie, Sector, Cell } from "recharts";
+import Pagination from './Pagination';
 import {
     BarChart,
     Bar,
@@ -84,17 +85,29 @@ const data = [
         amt: 2100
     }
 ];
-const data1 = [
+const data01 = [
     { name: "Group A", value: 400 },
     { name: "Group B", value: 300 },
     { name: "Group C", value: 300 },
-    { name: "Group D", value: 200 }
+    { name: "Group D", value: 200 },
+    { name: "Group E", value: 278 },
+    { name: "Group F", value: 189 }
 ];
-const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
+
+const data02 = [
+    { name: "Group A", value: 2400 },
+    { name: "Group B", value: 4567 },
+    { name: "Group C", value: 1398 },
+    { name: "Group D", value: 9800 },
+    { name: "Group E", value: 3908 },
+    { name: "Group F", value: 4800 }
+];
 
 const ProjectData = ({ email, priorityText, orderText, searchText }) => {
     const [projects, setProjects] = useState([]);
     const [filteredProjects, setFilteredProjects] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage] = useState(5);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -115,27 +128,70 @@ const ProjectData = ({ email, priorityText, orderText, searchText }) => {
     }, [email]);
 
     useEffect(() => {
-        // Filter projects by priority
-        let filteredProjects = [...projects]; // Create a copy of the projects array
+       
+        let filteredProjects = [...projects]; 
 
-        if (priorityText && priorityText !== "All") { // Check if priorityText is not "All"
+        if (priorityText && priorityText !== "All") { 
             filteredProjects = projects.filter(project => project.priority === priorityText);
         }
 
-        // Sort projects by order
+    
         if (orderText === 'asc') {
             filteredProjects.sort((a, b) => a.name.localeCompare(b.name));
         } else if (orderText === 'desc') {
             filteredProjects.sort((a, b) => b.name.localeCompare(a.name));
         }
 
-        // Filter projects by search text
+     
         if (searchText) {
             filteredProjects = filteredProjects.filter(project => project.name.toLowerCase().includes(searchText.toLowerCase()));
         }
 
         setFilteredProjects(filteredProjects);
     }, [projects, priorityText, orderText, searchText]);
+
+
+
+
+    //   // Dummy JSON data
+    //   const dummyData = [
+    //     { id: 1, name: "Item 1" },
+    //     { id: 2, name: "Item 2" },
+    //     { id: 3, name: "Item 3" },
+    //     { id: 4, name: "Item 4" },
+    //     { id: 5, name: "Item 5" },
+    //     { id: 6, name: "Item 6" },
+    //     { id: 7, name: "Item 7" },
+    //     { id: 8, name: "Item 8" },
+    //     { id: 9, name: "Item 9" },
+    //     { id: 10, name: "Item 10" },
+    //     { id: 11, name: "Item 11" },
+    //     { id: 12, name: "Item 12" },
+    //   ];
+
+    //   // Get current items
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = filteredProjects.slice(indexOfFirstItem, indexOfLastItem);
+
+
+    const paginate = pageNumber => setCurrentPage(pageNumber);
+
+    //   return (
+    //     <div className="container">
+    //       <h1>Pagination Example</h1>
+    //       <ul>
+    //         {currentItems.map(item => (
+    //           <li key={item.id}>{item.name}</li>
+    //         ))}
+    //       </ul>
+    //       <Pagination
+    //         itemsPerPage={itemsPerPage}
+    //         totalItems={dummyData.length}
+    //         paginate={paginate}
+    //       />
+    //     </div>
+    //   );
 
 
     return (
@@ -156,7 +212,7 @@ const ProjectData = ({ email, priorityText, orderText, searchText }) => {
                         </Table.Head>
 
                         <Table.Body className="divide-y">
-                            {filteredProjects.map(project => (
+                            {currentItems.map(project => (
                                 <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800" key={project._id}>
                                     <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
                                         {project.name}
@@ -175,85 +231,101 @@ const ProjectData = ({ email, priorityText, orderText, searchText }) => {
                             ))}
                         </Table.Body>
                     </Table>
+                    <Pagination itemsPerPage={itemsPerPage}
+                        totalItems={filteredProjects.length}
+                        paginate={paginate}
+                    />
 
                 </div>
             </div>
             <div>
                 <div>
-                    <div className='flex gap-5 m-8'>
-                        <div>
-                            <select name="Start" id="Start">
-                                <option value="Start">Start Date</option>
-                                <option value="End">End Date</option>
-                            </select>
+
+                    <div className='flex overflow-hidden gap-10'>
+
+                        <div className='flex'>
+                            <div>
+                                <div className='flex gap-5 m-8'>
+                                    <div>
+                                        <select name="Start" id="Start">
+                                            <option value="Start">Start Date</option>
+                                            <option value="End">End Date</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <select name="All" id="All">
+                                            <option value="High">High</option>
+                                            <option value="Low">Low</option>
+                                            <option value="Medium">Medium</option>
+                                            <option value="All">All</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <BarChart
+                                    width={700}
+                                    height={500}
+                                    data={data}
+                                    margin={{
+                                        top: 5,
+                                        right: 30,
+                                        left: 20,
+                                        bottom: 5
+                                    }}
+                                    barSize={20}
+                                >
+                                    <XAxis dataKey="name" scale="point" padding={{ left: 10, right: 10 }} />
+                                    <YAxis />
+                                    <Tooltip />
+                                    <Legend />
+                                    <CartesianGrid strokeDasharray="3 3" />
+                                    <Bar dataKey="pv" fill="#0000FF" background={{ fill: "#eee" }} />
+                                </BarChart>
+                            </div>
                         </div>
-                        <div>
-                            <select name="All" id="All">
-                                <option value="High">High</option>
-                                <option value="Low">Low</option>
-                                <option value="Medium">Medium</option>
-                                <option value="All">All</option>
-                            </select>
+                        <div className=''>
+                            <div className='flex gap-5 m-8'>
+                                <div>
+                                    <select name="Start" id="Start">
+                                        <option value="Start">Start Date</option>
+                                        <option value="End">End Date</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <select name="All" id="All">
+                                        <option value="High">High</option>
+                                        <option value="Low">Low</option>
+                                        <option value="Medium">Medium</option>
+                                        <option value="All">All</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <PieChart className='' width={600} height={400}>
+
+                                <Pie
+                                    dataKey="value"
+                                    isAnimationActive={false}
+                                    data={data01}
+                                    cx={300}
+                                    cy={100}
+                                    outerRadius={80}
+                                    fill="#8884d8"
+                                    label
+                                    width={700}
+                                />
+                                <Pie
+                                    dataKey="value"
+                                    data={data02}
+                                    cx={290}
+                                    cy={310}
+                                    innerRadius={40}
+                                    outerRadius={80}
+                                    fill="#82ca9d"
+                                />
+
+
+                            </PieChart>
                         </div>
                     </div>
-<div>
-    
-<div className='flex'>
-                        <BarChart
-                            width={700}
-                            height={500}
-                            data={data}
-                            margin={{
-                                top: 5,
-                                right: 30,
-                                left: 20,
-                                bottom: 5
-                            }}
-                            barSize={20}
-                        >
-                            <XAxis dataKey="name" scale="point" padding={{ left: 10, right: 10 }} />
-                            <YAxis />
-                            <Tooltip />
-                            <Legend />
-                            <CartesianGrid strokeDasharray="3 3" />
-                            <Bar dataKey="pv" fill="#0000FF" background={{ fill: "#eee" }} />
-                        </BarChart>
-                    </div>
-                    <div>
-                        <PieChart width={800} height={400}>
-                            <Pie
-                                data={data1}
-                                cx={120}
-                                cy={200}
-                                innerRadius={60}
-                                outerRadius={80}
-                                fill="#8884d8"
-                                paddingAngle={5}
-                                dataKey="value"
-                            >
-                                {data.map((entry, index) => (
-                                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                                ))}
-                            </Pie>
-                            <Pie
-                                data={data}
-                                cx={420}
-                                cy={200}
-                                startAngle={180}
-                                endAngle={0}
-                                innerRadius={60}
-                                outerRadius={80}
-                                fill="#8884d8"
-                                paddingAngle={5}
-                                dataKey="value"
-                            >
-                                {data.map((entry, index) => (
-                                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                                ))}
-                            </Pie>
-                        </PieChart>
-                    </div>
-</div>
 
                 </div>
 
