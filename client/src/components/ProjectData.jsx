@@ -13,78 +13,7 @@ import {
     Tooltip,
     Legend
 } from "recharts";
-const data = [
-    {
-        name: "Jan",
-        uv: 4000,
-        pv: 2400,
-        amt: 2400
-    },
-    {
-        name: "Feb",
-        uv: 3000,
-        pv: 1398,
-        amt: 2210
-    },
-    {
-        name: "Mar",
-        uv: 2000,
-        pv: 9800,
-        amt: 2290
-    },
-    {
-        name: "Apr",
-        uv: 2780,
-        pv: 3908,
-        amt: 2000
-    },
-    {
-        name: "May",
-        uv: 1890,
-        pv: 4800,
-        amt: 2181
-    },
-    {
-        name: "Jun",
-        uv: 2390,
-        pv: 3800,
-        amt: 2500
-    },
-    {
-        name: "Jul",
-        uv: 3490,
-        pv: 4300,
-        amt: 2100
-    }, {
-        name: "Aug",
-        uv: 3490,
-        pv: 4300,
-        amt: 2100
-    }, {
-        name: "Sep",
-        uv: 3490,
-        pv: 4300,
-        amt: 2100
-    }
-    , {
-        name: "Oct",
-        uv: 3490,
-        pv: 4300,
-        amt: 2100
-    }
-    , {
-        name: "Nov",
-        uv: 3490,
-        pv: 4300,
-        amt: 2100
-    }
-    , {
-        name: "Dec",
-        uv: 3490,
-        pv: 4300,
-        amt: 2100
-    }
-];
+
 const data01 = [
     { name: "Group A", value: 400 },
     { name: "Group B", value: 300 },
@@ -103,11 +32,110 @@ const data02 = [
     { name: "Group F", value: 4800 }
 ];
 
+const dateJson=[
+    {
+       "date":"1990-2000"
+    },
+    {
+       "date":"2000-2010"
+    },
+    {
+        "date":"2010-2020"
+    },
+    {
+        "date":"2020-2030"
+    },
+    {
+      "date":"2030-2040"
+    },
+    {
+       "date":"2040-2050"
+    },
+    {
+       "date":"2050-2060"
+    }
+
+]
+
 const ProjectData = ({ email, priorityText, orderText, searchText }) => {
     const [projects, setProjects] = useState([]);
     const [filteredProjects, setFilteredProjects] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
+    const [startYear,setStartYear]=useState("1990")
+    const[endYear,setEndYear]=useState("2000")
+    const [projectCountsByYear, setProjectCountsByYear] = useState({});
+    const [priority,setPriority]=useState("All")
+    
     const [itemsPerPage] = useState(5);
+    const [data,setData]=useState(
+        [
+            {
+                name: "1990",
+                uv: 4000,
+                pv: 0,
+                amt: 2400
+            },
+            {
+                name: "1991",
+                uv: 3000,
+                pv: 0,
+                amt: 2210
+            },
+            {
+                name: "1992",
+                uv: 2000,
+                pv: 0,
+                amt: 2290
+            },
+            {
+                name: "1993",
+                uv: 2780,
+                pv: 0,
+                amt: 2000
+            },
+            {
+                name: "1994",
+                uv: 1890,
+                pv: 0,
+                amt: 2181
+            },
+            {
+                name: "1995",
+                uv: 2390,
+                pv: 0,
+                amt: 2500
+            },
+            {
+                name: "1996",
+                uv: 3490,
+                pv: 0,
+                amt: 2100
+            }, {
+                name: "1997",
+                uv: 3490,
+                pv: 0,
+                amt: 2100
+            }, {
+                name: "1998",
+                uv: 3490,
+                pv: 0,
+                amt: 2100
+            }
+            , {
+                name: "1999",
+                uv: 3490,
+                pv: 0,
+                amt: 2100
+            }
+            ,{
+                name: "2000",
+                uv: 3490,
+                pv: 0,
+                amt: 2100
+            }
+        ]
+       
+    )
 
     useEffect(() => {
         const fetchData = async () => {
@@ -151,49 +179,70 @@ const ProjectData = ({ email, priorityText, orderText, searchText }) => {
     }, [projects, priorityText, orderText, searchText]);
 
 
-
-
-    //   // Dummy JSON data
-    //   const dummyData = [
-    //     { id: 1, name: "Item 1" },
-    //     { id: 2, name: "Item 2" },
-    //     { id: 3, name: "Item 3" },
-    //     { id: 4, name: "Item 4" },
-    //     { id: 5, name: "Item 5" },
-    //     { id: 6, name: "Item 6" },
-    //     { id: 7, name: "Item 7" },
-    //     { id: 8, name: "Item 8" },
-    //     { id: 9, name: "Item 9" },
-    //     { id: 10, name: "Item 10" },
-    //     { id: 11, name: "Item 11" },
-    //     { id: 12, name: "Item 12" },
-    //   ];
-
-    //   // Get current items
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentItems = filteredProjects.slice(indexOfFirstItem, indexOfLastItem);
 
 
     const paginate = pageNumber => setCurrentPage(pageNumber);
+    useEffect(() => {
+        const fetchProjectCounts = async () => {
+            try {
+                const response = await fetch('http://localhost:5000/Project/countProjectsByManagerAndYear', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                        body: JSON.stringify({
+                        managerEmail:email,
+                        startYear:startYear,
+                        endYear:endYear,
+                        priority:priority
+                    })
+                });
 
-    //   return (
-    //     <div className="container">
-    //       <h1>Pagination Example</h1>
-    //       <ul>
-    //         {currentItems.map(item => (
-    //           <li key={item.id}>{item.name}</li>
-    //         ))}
-    //       </ul>
-    //       <Pagination
-    //         itemsPerPage={itemsPerPage}
-    //         totalItems={dummyData.length}
-    //         paginate={paginate}
-    //       />
-    //     </div>
-    //   );
+                if (!response.ok) {
+                    throw new Error('Failed to fetch project counts');
+                }
 
+                const data = await response.json();
+                setProjectCountsByYear(data.projectCountsByYear);
+            } catch (error) {
+                console.log(error)
+            }
+        };
 
+        fetchProjectCounts();
+    }, [email, startYear, endYear,priority]);
+    console.log(projectCountsByYear,"hello projects")
+
+    const setFun=(e)=>{
+        const selectedDateRange = e.target.value;
+        const [startYear, endYear] = selectedDateRange.split('-').map(year => parseInt(year));
+        setStartYear(startYear)
+        setEndYear(endYear)
+    }
+
+    useEffect(() => {
+        const selectedDateRange = `${startYear}-${endYear}`;
+        const [startYearInt, endYearInt] = selectedDateRange.split('-').map(year => parseInt(year));
+    
+        const updatedData = data.map((entry, index) => {
+            const year = startYearInt + index;
+            const count = projectCountsByYear[year] || 0;
+            if (year >= startYearInt && year <= endYearInt) {
+                return {
+                    ...entry,
+                    name: `${year}`,
+                    pv: count
+                };
+            }
+            return entry;
+        });
+        setData(updatedData);
+    }, [startYear, endYear, projectCountsByYear]);
+   
+    
     return (
         <div>
             <div>
@@ -247,17 +296,20 @@ const ProjectData = ({ email, priorityText, orderText, searchText }) => {
                             <div>
                                 <div className='flex gap-5 m-8'>
                                     <div>
-                                        <select name="Start" id="Start">
-                                            <option value="Start">Start Date</option>
-                                            <option value="End">End Date</option>
+                                        <select onChange={(e)=>setFun(e)} name="Start" id="Start">
+                                           {
+                                             dateJson && dateJson.map((date)=>
+                                             <option value={date.date}>{date.date}</option>
+                                             ) 
+                                           }
                                         </select>
                                     </div>
                                     <div>
-                                        <select name="All" id="All">
-                                            <option value="High">High</option>
+                                        <select onChange={(e)=>setPriority(e.target.value)} name="All" id="All">
+                                            <option value="All">All</option>
                                             <option value="Low">Low</option>
                                             <option value="Medium">Medium</option>
-                                            <option value="All">All</option>
+                                            <option value="High">High</option>
                                         </select>
                                     </div>
                                 </div>
@@ -321,8 +373,6 @@ const ProjectData = ({ email, priorityText, orderText, searchText }) => {
                                     outerRadius={80}
                                     fill="#82ca9d"
                                 />
-
-
                             </PieChart>
                         </div>
                     </div>
