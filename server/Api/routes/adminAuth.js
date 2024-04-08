@@ -21,7 +21,7 @@ router.post('/Adlogin', async (req, res) => {
         const database = client.db('test');
         const adminCollection = database.collection('Admin');
 
-        // Query admin collection for the provided username
+       
         const admin = await adminCollection.findOne({ adminEmail });
 
         if (!admin) {
@@ -32,8 +32,9 @@ router.post('/Adlogin', async (req, res) => {
         if (password !== admin.password) {
             return res.status(401).json({ message: 'Invalid username or password' });
         }
+        const token = jwt.sign({ isAdmin:true }, process.env.JWT_SECRET_KEY, { expiresIn: '1d' });
 
-        res.json("Admin login successfully");
+        res.json({msg:"Admin login successfully",token});
     } catch (error) {
         console.error('Error logging in:', error);
         res.status(500).json({ message: 'Internal server error' });

@@ -1,5 +1,8 @@
 import mongoose from "mongoose";
-import ProjectSchema from "./ProjectSchema.js"; // Import the ProjectSchema
+import ProjectSchema from "./ProjectSchema.js"; 
+import jwt from "jsonwebtoken"
+import dotenv from "dotenv"
+dotenv.config()
 
 const userSchema = new mongoose.Schema({
     username: {

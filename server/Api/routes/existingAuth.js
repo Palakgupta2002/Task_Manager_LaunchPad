@@ -2,6 +2,7 @@ import express from "express";
 import bodyParser from "body-parser";
 import bcryptjs from "bcryptjs";
 import User from "../models/User.js";
+import jwt from "jsonwebtoken"
 
 const router = express.Router();
 
@@ -24,9 +25,9 @@ router.post('/signIn', async (req, res, next) => {
         if (!isPasswordValid) {
             return res.status(401).json({ message: 'Invalid password' });
         }
+        const token = jwt.sign({ email: user.email,isAdmin:false }, process.env.JWT_SECRET_KEY, { expiresIn: '1d' });
         
-        // At this point, user is authenticated
-        return res.json({ message: 'Sign-in successful', user });
+        return res.json({ message: 'Sign-in successful',email:user.email,token});
     } catch (error) {
         console.log(error);
         return res.status(500).json({ message: 'Internal server error' });
