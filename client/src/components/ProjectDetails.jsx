@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import useUserData from '../CustomHooks/UserData';
-import HeaderAdmin from './HeaderAdmin';
 import { Button, Modal } from 'flowbite-react';
 import AddTask from './AddTask';
-import Piechart from './PieChart';
 import KanbanBoard from './KanbanBoard';
+import HeaderAdmin from './HeaderAdmin';
+import Header from './Header';
 
 const ProjectDetails = () => {
     const [projectData, setProjectData] = useState({});
@@ -13,6 +13,10 @@ const ProjectDetails = () => {
     const [openModal, setOpenModal] = useState(false);
     const { id } = useParams();
     const userData = useUserData(useremail)
+    const isadmin = localStorage.getItem("adminLog"); 
+   
+    console.log(typeof(admin),"'hello admin")
+
     console.log(userData, "hello userdata")
     const handleviewDetails = (email) => {
         setuseremail(email)
@@ -50,7 +54,7 @@ const ProjectDetails = () => {
 
     return (
         <div className='overflow-y-hidden'>
-            {/* <HeaderAdmin /> */}
+            {isadmin==="true"?<HeaderAdmin/>:<Header/>}
 
             {projectData && projectData.name}
             <div>
@@ -85,7 +89,7 @@ const ProjectDetails = () => {
                     </div>
                 ))}
             </div>
-           <KanbanBoard  />
+           <KanbanBoard projectData={projectData} />
         </div>
     );
 };

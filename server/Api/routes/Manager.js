@@ -7,12 +7,8 @@ import jwt from 'jsonwebtoken'
 router.get('/', async (req, res) => {
   try {
     const managers = await Manager.find()
-    const token = jwt.sign(
-      { email: managers.Memail },
-      process.env.JWT_SECRET_KEY,
-      { expiresIn: '1d' },
-    )
-    return res.json({ message: 'Sign-in successful', token })
+   
+    return res.json({ message: 'Sign-in successful',managers })
   } catch (err) {
     res.status(500).json({ message: err.message })
   }
@@ -92,11 +88,11 @@ router.post('/login', async (req, res) => {
     }
 
     const token = jwt.sign(
-      { email: manager.Memail, isAdmin: false },
+      { email: manager.Memail},
       process.env.JWT_SECRET_KEY,
       { expiresIn: '1d' },
     )
-    res.json({ email: manager.Memail, token })
+    res.json({ email: manager.Memail, token,isAdmin:"false" })
   } catch (error) {
     console.error('Error during manager login:', error)
     res.status(500).json({ message: 'Internal server error' })

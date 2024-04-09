@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Modal } from 'flowbite-react';
 import deletetask from '../CustomHooks/deleteTask';
-import { useContext } from 'react';
-import { EmailContext } from '../App';
+
 import DatePicker from 'react-datepicker';
 import medium from "../assest/medium.svg"
 import low from "../assest/low.svg"
@@ -11,14 +10,21 @@ import 'react-datepicker/dist/react-datepicker.css';
 
 const TaskCard = ({ tasks }) => {
 
-  const { adminLog, email } = useContext(EmailContext);
+const Email = localStorage.getItem("Email"); 
+const email = JSON.stringify(Email);
+const unquotedEmail = email.substring(1, email.length - 1);
+
+const isadminLog=localStorage.getItem("adminLog")
+const adminLog = JSON.stringify(isadminLog);
+
+
   const [openModal, setOpenModal] = useState(false);
   const [formData, setFormData] = useState({
     title: tasks.title,
     description: tasks.description,
     priority: tasks.priority,
     dueDate: new Date(tasks.dueDate),
-    email: email
+    email: unquotedEmail
   });
   let priorityIcon = null;
 
@@ -42,7 +48,7 @@ const TaskCard = ({ tasks }) => {
   const handleComplete = async () => {
     try {
       // Call the API to update the task's completion status
-      const response = await fetch(`http://localhost:5000/updateTask/${email}/tasks/${tasks._id}`, {
+      const response = await fetch(`http://localhost:5000/updateTask/${unquotedEmail}/tasks/${tasks._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

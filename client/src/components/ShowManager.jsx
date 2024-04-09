@@ -13,7 +13,8 @@ const ShowManager = () => {
                 throw new Error('Failed to fetch managers');
             }
             const data = await response.json();
-            setManagers(data);
+            console.log(data)
+            setManagers(data?.managers);
         }
         catch(error){
             console.error('Error fetching managers:', error);
@@ -22,7 +23,7 @@ const ShowManager = () => {
     }
     useEffect(() => {
         fetchManagers(); // Fetch managers when component mounts
-      }, [managers]);
+      }, []);
   return (
     <div className=''>
     <h2 className='bg-blue-800 text-center text-white text-2xl'>All Managers</h2>

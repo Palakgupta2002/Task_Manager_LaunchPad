@@ -2,10 +2,10 @@ import { Button } from 'flowbite-react';
 import React, { useContext, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { EmailContext } from '../App';
+
 
 const TaskForm = ({ setOpenModal, email,projectId}) => {
-  // const { email } = useContext(EmailContext);
+
 
   const [formData, setFormData] = useState({
     title: '',

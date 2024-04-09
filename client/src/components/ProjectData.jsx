@@ -1,5 +1,5 @@
 import React, { useEffect, useContext, useState } from 'react';
-import { EmailContext } from '../App';
+
 import { Link, useParams } from 'react-router-dom';
 import { Table } from 'flowbite-react';
 import { PieChart, Pie, Sector, Cell } from "recharts";
@@ -13,6 +13,12 @@ import {
     Tooltip,
     Legend
 } from "recharts";
+import {
+    ComposedChart,
+    Line,
+    Area,
+    Scatter
+  } from "recharts";
 
 const data01 = [
     { name: "Group A", value: 400 },
@@ -32,42 +38,131 @@ const data02 = [
     { name: "Group F", value: 4800 }
 ];
 
-const dateJson=[
+const dateJson = [
     {
-       "date":"1990-2000"
+        "date": "1990-2000"
     },
     {
-       "date":"2000-2010"
+        "date": "2000-2010"
     },
     {
-        "date":"2010-2020"
+        "date": "2010-2020"
     },
     {
-        "date":"2020-2030"
+        "date": "2020-2030"
     },
     {
-      "date":"2030-2040"
+        "date": "2030-2040"
     },
     {
-       "date":"2040-2050"
+        "date": "2040-2050"
     },
     {
-       "date":"2050-2060"
+        "date": "2050-2060"
     }
 
 ]
+const data4 = [
+    {
+      name: "Jan",
+      uv: 590,
+      pv: 800,
+      amt: 1400,
+      cnt: 490
+    },
+    {
+      name: "Feb",
+      uv: 868,
+      pv: 967,
+      amt: 1506,
+      cnt: 590
+    },
+    {
+      name: "Mar",
+      uv: 1397,
+      pv: 1098,
+      amt: 989,
+      cnt: 350
+    },
+    {
+      name: "April",
+      uv: 1480,
+      pv: 1200,
+      amt: 1228,
+      cnt: 480
+    },
+    {
+      name: "May",
+      uv: 1520,
+      pv: 1108,
+      amt: 1100,
+      cnt: 460
+    },
+    {
+      name: "Jun",
+      uv: 1500,
+      pv: 680,
+      amt: 1700,
+      cnt: 380
+    },
+    {
+        name: "Jul",
+        uv: 900,
+        pv: 680,
+        amt: 1700,
+        cnt: 380
+      },
+      {
+        name: "Aug",
+        uv: 1400,
+        pv: 680,
+        amt: 1700,
+        cnt: 380
+      },
+      {
+        name: "Sep",
+        uv: 700,
+        pv: 680,
+        amt: 1700,
+        cnt: 380
+      },
+      {
+        name: "Oct",
+        uv: 1000,
+        pv: 680,
+        amt: 1700,
+        cnt: 380
+      },
+      {
+        name: "Nov",
+        uv: 1400,
+        pv: 680,
+        amt: 1700,
+        cnt: 380
+      },
+      {
+        name: "Dec",
+        uv: 1400,
+        pv: 680,
+        amt: 1700,
+        cnt: 380
+      }
+  ];
 
-const ProjectData = ({ email, priorityText, orderText, searchText }) => {
+const ProjectData = ({email, priorityText, orderText, searchText }) => {
+// const Email = localStorage.getItem("Email"); 
+// const email = JSON.stringify(Email);
+// const unquotedEmail = email.substring(1, email.length - 1);
     const [projects, setProjects] = useState([]);
     const [filteredProjects, setFilteredProjects] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const [startYear,setStartYear]=useState("1990")
-    const[endYear,setEndYear]=useState("2000")
+    const [startYear, setStartYear] = useState("1990")
+    const [endYear, setEndYear] = useState("2000")
     const [projectCountsByYear, setProjectCountsByYear] = useState({});
-    const [priority,setPriority]=useState("All")
-    
+    const [priority, setPriority] = useState("All")
+
     const [itemsPerPage] = useState(5);
-    const [data,setData]=useState(
+    const [data, setData] = useState(
         [
             {
                 name: "1990",
@@ -127,14 +222,14 @@ const ProjectData = ({ email, priorityText, orderText, searchText }) => {
                 pv: 0,
                 amt: 2100
             }
-            ,{
+            , {
                 name: "2000",
                 uv: 3490,
                 pv: 0,
                 amt: 2100
             }
         ]
-       
+
     )
 
     useEffect(() => {
@@ -156,21 +251,21 @@ const ProjectData = ({ email, priorityText, orderText, searchText }) => {
     }, [email]);
 
     useEffect(() => {
-       
-        let filteredProjects = [...projects]; 
 
-        if (priorityText && priorityText !== "All") { 
+        let filteredProjects = [...projects];
+
+        if (priorityText && priorityText !== "All") {
             filteredProjects = projects.filter(project => project.priority === priorityText);
         }
 
-    
+
         if (orderText === 'asc') {
             filteredProjects.sort((a, b) => a.name.localeCompare(b.name));
         } else if (orderText === 'desc') {
             filteredProjects.sort((a, b) => b.name.localeCompare(a.name));
         }
 
-     
+
         if (searchText) {
             filteredProjects = filteredProjects.filter(project => project.name.toLowerCase().includes(searchText.toLowerCase()));
         }
@@ -193,11 +288,11 @@ const ProjectData = ({ email, priorityText, orderText, searchText }) => {
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                        body: JSON.stringify({
-                        managerEmail:email,
-                        startYear:startYear,
-                        endYear:endYear,
-                        priority:priority
+                    body: JSON.stringify({
+                        managerEmail: email,
+                        startYear: startYear,
+                        endYear: endYear,
+                        priority: priority
                     })
                 });
 
@@ -213,10 +308,10 @@ const ProjectData = ({ email, priorityText, orderText, searchText }) => {
         };
 
         fetchProjectCounts();
-    }, [email, startYear, endYear,priority]);
-    console.log(projectCountsByYear,"hello projects")
+    }, [email, startYear, endYear, priority]);
+    console.log(projectCountsByYear, "hello projects")
 
-    const setFun=(e)=>{
+    const setFun = (e) => {
         const selectedDateRange = e.target.value;
         const [startYear, endYear] = selectedDateRange.split('-').map(year => parseInt(year));
         setStartYear(startYear)
@@ -226,7 +321,7 @@ const ProjectData = ({ email, priorityText, orderText, searchText }) => {
     useEffect(() => {
         const selectedDateRange = `${startYear}-${endYear}`;
         const [startYearInt, endYearInt] = selectedDateRange.split('-').map(year => parseInt(year));
-    
+
         const updatedData = data.map((entry, index) => {
             const year = startYearInt + index;
             const count = projectCountsByYear[year] || 0;
@@ -241,8 +336,8 @@ const ProjectData = ({ email, priorityText, orderText, searchText }) => {
         });
         setData(updatedData);
     }, [startYear, endYear, projectCountsByYear]);
-   
-    
+
+
     return (
         <div>
             <div>
@@ -296,16 +391,16 @@ const ProjectData = ({ email, priorityText, orderText, searchText }) => {
                             <div>
                                 <div className='flex gap-5 m-8'>
                                     <div>
-                                        <select onChange={(e)=>setFun(e)} name="Start" id="Start">
-                                           {
-                                             dateJson && dateJson.map((date)=>
-                                             <option value={date.date}>{date.date}</option>
-                                             ) 
-                                           }
+                                        <select onChange={(e) => setFun(e)} name="Start" id="Start">
+                                            {
+                                                dateJson && dateJson.map((date) =>
+                                                    <option value={date.date}>{date.date}</option>
+                                                )
+                                            }
                                         </select>
                                     </div>
                                     <div>
-                                        <select onChange={(e)=>setPriority(e.target.value)} name="All" id="All">
+                                        <select onChange={(e) => setPriority(e.target.value)} name="All" id="All">
                                             <option value="All">All</option>
                                             <option value="Low">Low</option>
                                             <option value="Medium">Medium</option>
@@ -315,7 +410,7 @@ const ProjectData = ({ email, priorityText, orderText, searchText }) => {
                                 </div>
                                 <BarChart
                                     width={700}
-                                    height={500}
+                                    height={470}
                                     data={data}
                                     margin={{
                                         top: 5,
@@ -351,29 +446,27 @@ const ProjectData = ({ email, priorityText, orderText, searchText }) => {
                                     </select>
                                 </div>
                             </div>
-                            <PieChart className='' width={600} height={400}>
-
-                                <Pie
-                                    dataKey="value"
-                                    isAnimationActive={false}
-                                    data={data01}
-                                    cx={300}
-                                    cy={100}
-                                    outerRadius={80}
-                                    fill="#8884d8"
-                                    label
-                                    width={700}
-                                />
-                                <Pie
-                                    dataKey="value"
-                                    data={data02}
-                                    cx={290}
-                                    cy={310}
-                                    innerRadius={40}
-                                    outerRadius={80}
-                                    fill="#82ca9d"
-                                />
-                            </PieChart>
+                            <ComposedChart
+                                width={600}
+                                height={480}
+                                data={data4}
+                                margin={{
+                                    top: 20,
+                                    right: 20,
+                                    bottom: 20,
+                                    left: 20
+                                }}
+                            >
+                                <CartesianGrid stroke="#f5f5f5" />
+                                <XAxis dataKey="name" />
+                                <YAxis />
+                                <Tooltip />
+                                <Legend />
+                                <Area type="monotone" dataKey="amt" fill="#8884d8" stroke="#8884d8" />
+                                <Bar dataKey="pv" barSize={20} fill="#8884d8" />
+                                <Line type="monotone" dataKey="uv" stroke="#ff7300" />
+                                <Scatter dataKey="cnt" fill="red" />
+                            </ComposedChart>
                         </div>
                     </div>
 

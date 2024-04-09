@@ -1,17 +1,21 @@
 import React, { useContext, useState } from 'react'
 import Header from '../components/Header'
 import CreateProject from '../components/CreateProject'
-import { EmailContext } from '../App'
 import useManagerData from '../CustomHooks/GetManager'
 import ProjectData from '../components/ProjectData'
 import filter from "../assest/filter.svg"
 import "../App.css"
 import { Button, Dropdown } from 'flowbite-react'
-import ExampleComponent from '../components/Pagination'
+
 
 const ManagerHome = () => {
-  const { email } = useContext(EmailContext)
-  const managerData = useManagerData(email)
+const Email = localStorage.getItem("Email"); 
+const email= JSON.stringify(Email);
+const unquotedEmail = email.substring(1, email.length - 1);
+
+
+  const managerData = useManagerData(unquotedEmail)
+  console.log(managerData,"hello")
   const [showFilter, setShowFilter] = useState(true)
   const [search, setSearch] = useState(true)
   const [priorityText, setPriorityText] = useState("All")
@@ -21,6 +25,7 @@ const ManagerHome = () => {
 
   return (
     <div className=''>
+
       <Header setGraphicalView={setGraphicalView} graphicalView={graphicalView} />
       {/* {managerData?.Memail}<br/>
         sorting fun 
@@ -61,7 +66,7 @@ const ManagerHome = () => {
         </div>
       </div>
 
-      <ProjectData email={email} priorityText={priorityText} orderText={orderText} searchText={searchText} />
+      <ProjectData email={unquotedEmail} priorityText={priorityText} orderText={orderText} searchText={searchText} />
 
 
     </div>

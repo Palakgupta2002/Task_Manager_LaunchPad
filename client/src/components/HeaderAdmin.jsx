@@ -1,14 +1,14 @@
 import { Button } from 'flowbite-react';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { EmailContext } from '../App';
-import { useContext } from 'react';
 
 const HeaderAdmin = () => {
-  const {setAdminLog} =useContext(EmailContext)
+  
   const handleEmailValue=()=>{
+    localStorage.removeItem("token");
+    localStorage.removeItem("adminLog");
+    window.location.reload(); 
    
-     setAdminLog(false)
 }
   return (
     <div className='w-full flex justify-between bg-blue-300 text-grey p-4 shadow-lg'>

@@ -25,9 +25,10 @@ router.post('/signIn', async (req, res, next) => {
         if (!isPasswordValid) {
             return res.status(401).json({ message: 'Invalid password' });
         }
-        const token = jwt.sign({ email: user.email,isAdmin:false }, process.env.JWT_SECRET_KEY, { expiresIn: '1d' });
+        const token = jwt.sign({ email: user.email,isAdmin:"false"}, process.env.JWT_SECRET_KEY, { expiresIn: '1d' });
         
-        return res.json({ message: 'Sign-in successful',email:user.email,token});
+        
+        return res.json({ message: 'Sign-in successful',email:user.email,token,isAdmin:false});
     } catch (error) {
         console.log(error);
         return res.status(500).json({ message: 'Internal server error' });

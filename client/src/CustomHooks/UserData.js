@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react'
 
 const useUserData = (email) => {
   const [userData, setUserData] = useState(null) // State to store user data
-  console.log(email, 'use data email')
+
+
 
   useEffect(() => {
     const fetchUserData = async () => {

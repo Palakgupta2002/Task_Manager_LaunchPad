@@ -1,9 +1,9 @@
 import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { EmailContext } from '../App';
+
 
 const AdminLogin = () => {
-  const { setAdminLog } = useContext(EmailContext);
+  
   const [errorMessage, setErrorMessage] = useState(null);
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
@@ -27,11 +27,11 @@ const AdminLogin = () => {
         },
         body: JSON.stringify(formData)
       });
-
+      const data = await response.json();
       if (response.ok) {
-        // Redirect or handle successful login
-        setLoading(false)
-        setAdminLog(true)
+        
+       localStorage.setItem("adminLog",data.isAdmin)
+        setLoading(false) 
         navigate('/AdminHome')
 
         // console.log('Login successful');

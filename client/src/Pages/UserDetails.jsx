@@ -8,6 +8,7 @@ import AddTask from "../components/AddTask";
 
 const UserDetails = () => {
     const param= useParams();
+    
     const userData = useUserData(param?.email); 
     console.log(param,"hello param")
    

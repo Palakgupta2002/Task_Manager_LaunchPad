@@ -2,23 +2,22 @@
 import { Button, Navbar, TextInput } from "flowbite-react"
 import { useState } from "react";
 import { Link,useLocation } from "react-router-dom"
-import { EmailContext } from "../App";
-import { useContext } from "react";
 
-// import { GoSearch} from "react-icons/go";
-// import {FaMoon} from "react-icons/fa"
 const Header = ({setGraphicalView,graphicalView}) => {
 
-const  {setEmail}=useContext(EmailContext)
+
 const handleEmailValue=()=>{
-  setEmail("")
+  localStorage.removeItem("Email");
+    localStorage.removeItem("token");
+    localStorage.removeItem("adminLog");
+    window.location.reload(); 
 }
   const path=useLocation().pathname;
   return (
     <div>
       <Navbar className="border-b-2 ">
        
-      <Link to="/Home">
+      <Link to="/ManagerHome">
       <div className="flex items-center  text-2xl font-semibold text-gray-900 dark:text-white">
           <img className="w-8 h-8 mr-2" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg" alt="logo" />
          Task Manager
@@ -34,7 +33,7 @@ const handleEmailValue=()=>{
         </div>
         <Navbar.Collapse>
           <Navbar.Link active={path==='/ManagerHome'} as={'div'}>
-            <Link to='/Home'>
+            <Link to='ManagerHome'>
               Home
             </Link>
           </Navbar.Link>

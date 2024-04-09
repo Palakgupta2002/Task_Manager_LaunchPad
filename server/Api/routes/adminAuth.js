@@ -1,5 +1,6 @@
 import express from "express"
 import { MongoClient } from "mongodb";
+import jwt from "jsonwebtoken"
 import dotenv from "dotenv"
 dotenv.config()
 
@@ -32,9 +33,9 @@ router.post('/Adlogin', async (req, res) => {
         if (password !== admin.password) {
             return res.status(401).json({ message: 'Invalid username or password' });
         }
-        const token = jwt.sign({ isAdmin:true }, process.env.JWT_SECRET_KEY, { expiresIn: '1d' });
+        const token = jwt.sign({ isAdmin:"true" }, process.env.JWT_SECRET_KEY, { expiresIn: '1d' });
 
-        res.json({msg:"Admin login successfully",token});
+        res.json({msg:"Admin login successfully",token, isAdmin:"true"});
     } catch (error) {
         console.error('Error logging in:', error);
         res.status(500).json({ message: 'Internal server error' });
@@ -45,4 +46,5 @@ router.post('/Adlogin', async (req, res) => {
 });
 
 export default router
+
 

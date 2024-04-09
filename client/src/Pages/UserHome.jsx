@@ -10,8 +10,12 @@ import ChatFunctionality from '../components/ChatFunctionality';
 
 const Home = () => {
   // console.log(UserData,"hello")
-  const { email } = useContext(EmailContext); 
-  const userData = useUserData(email);
+  const Email = localStorage.getItem("Email"); 
+  const email = JSON.stringify(Email);
+  const unquotedEmail = email.substring(1, email.length - 1);
+
+  const userData = useUserData(unquotedEmail);
+  console.log(unquotedEmail,"hello userdata")
   return (
     <div>
    <Header/>

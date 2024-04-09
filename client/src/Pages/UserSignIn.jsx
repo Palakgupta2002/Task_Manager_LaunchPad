@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { EmailContext } from '../App';
+
 import UiImage from "../assest/toolfrontend.png"
 
 const SignIn = () => {
@@ -9,8 +9,7 @@ const SignIn = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  // Access setEmail function from EmailContext
-  const { setEmail } = useContext(EmailContext);
+
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -48,9 +47,13 @@ const SignIn = () => {
       });
     
       const data = await res.json();
+      console.log(data.isAdmin,"hello ")
       if (res.ok) {
-        // Handle success
-        setEmail(email);
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('Email',data.email);
+        localStorage.setItem("adminLog",data.isAdmin)
+
+       
        if(uniqueId.includes("user"))
        {
         navigate('/Home');
@@ -72,9 +75,6 @@ const SignIn = () => {
     }
   };
   
-  
-  
-
   return (
     <div className="mt-20">
        <div className=" flex justify-center items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white ">
@@ -142,7 +142,6 @@ const SignIn = () => {
         <img src={UiImage} alt='uiImage'/>
       </div>
     </div>
-
     </div>
   );
 };
