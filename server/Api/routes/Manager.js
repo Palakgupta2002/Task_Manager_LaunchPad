@@ -8,7 +8,7 @@ router.get('/', async (req, res) => {
   try {
     const managers = await Manager.find()
    
-    return res.json({ message: 'Sign-in successful',managers })
+    return res.json({ message: 'Get Manager',managers })
   } catch (err) {
     res.status(500).json({ message: err.message })
   }

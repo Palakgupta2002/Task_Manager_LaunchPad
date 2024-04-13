@@ -3,7 +3,7 @@ import User from '../models/User.js'; // Assuming you have a User model
 
 const router = express.Router();
 
-// GET user data by email
+
 router.get('/users/:email', async (req, res) => {
     try {
         const { email } = req.params;
@@ -21,5 +21,15 @@ router.get('/users/:email', async (req, res) => {
         return res.status(500).json({ message: 'Internal server error' });
     }
 });
+
+router.get('/', async (req, res) => {
+    try {
+      const user = await User.find()
+     
+      return res.json({ message: 'Get Manager',user })
+    } catch (err) {
+      res.status(500).json({ message: err.message })
+    }
+  })
 
 export default router;
