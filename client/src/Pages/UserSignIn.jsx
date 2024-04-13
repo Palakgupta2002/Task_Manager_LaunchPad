@@ -56,7 +56,7 @@ const SignIn = () => {
        
        if(uniqueId.includes("user"))
        {
-        navigate('/Home');
+        navigate(`/Home/${data.email}`);
        }
        else{
         navigate('/ManagerHome')

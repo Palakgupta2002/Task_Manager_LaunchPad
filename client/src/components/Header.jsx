@@ -2,14 +2,16 @@
 import { Button, Navbar, TextInput } from "flowbite-react"
 import { useState } from "react";
 import { Link,useLocation } from "react-router-dom"
+import {  useNavigate } from 'react-router-dom';
 
-const Header = ({setGraphicalView,graphicalView}) => {
-
+const Header = () => {
+const navigate=useNavigate()
 
 const handleEmailValue=()=>{
   localStorage.removeItem("Email");
     localStorage.removeItem("token");
     localStorage.removeItem("adminLog");
+    navigate('/')
     window.location.reload(); 
 }
   const path=useLocation().pathname;

@@ -154,8 +154,8 @@ const AdminLogin = () => {
               </div>
             </form>
             <div className='flex justify-around mt-3 text-blue-600'>
-              <Link to='/signIn'><h1>User login</h1></Link>
-              <Link to='/'><h1>Sign up as user</h1></Link>
+              <Link to='/'><h1>User login</h1></Link>
+              {/* <Link to='/'><h1>Sign up as user</h1></Link> */}
             </div>
           </div>
 

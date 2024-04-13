@@ -26,7 +26,7 @@ const ShowManager = () => {
       }, []);
   return (
     <div className=''>
-    <h2 className='bg-blue-800 text-center text-white text-2xl'>All Managers</h2>
+    <h2 className='bg-blue-400 text-center text-white text-2xl'>All Managers</h2>
     {/* <table className=' w-full'>
       <thead className=' mt-4'>
         <tr>

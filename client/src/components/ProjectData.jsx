@@ -40,7 +40,7 @@ const data02 = [
 
 const dateJson = [
     {
-        "date": "1990-2000"
+        "date": "2020-2030"
     },
     {
         "date": "2000-2010"
@@ -156,12 +156,12 @@ const ProjectData = ({email, priorityText, orderText, searchText }) => {
     const [projects, setProjects] = useState([]);
     const [filteredProjects, setFilteredProjects] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const [startYear, setStartYear] = useState("1990")
-    const [endYear, setEndYear] = useState("2000")
+    const [startYear, setStartYear] = useState("2020")
+    const [endYear, setEndYear] = useState("2030")
     const [projectCountsByYear, setProjectCountsByYear] = useState({});
     const [priority, setPriority] = useState("All")
 
-    const [itemsPerPage] = useState(5);
+    const [itemsPerPage] = useState(12);
     const [data, setData] = useState(
         [
             {
@@ -350,9 +350,6 @@ const ProjectData = ({email, priorityText, orderText, searchText }) => {
                             <Table.HeadCell>End Date</Table.HeadCell>
                             <Table.HeadCell>Priority</Table.HeadCell>
                             <Table.HeadCell>Action</Table.HeadCell>
-                            <Table.HeadCell>
-                                <span className="sr-only">Edit</span>
-                            </Table.HeadCell>
                         </Table.Head>
 
                         <Table.Body className="divide-y">

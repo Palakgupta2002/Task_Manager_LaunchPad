@@ -7,6 +7,7 @@ import Profile from '../components/Profile';
 import Header from '../components/Header';
 import TaskMap from '../components/TaskMap';
 import ChatFunctionality from '../components/ChatFunctionality';
+import ShowUserDetails from '../components/ShowUserDetails';
 
 const Home = () => {
   // console.log(UserData,"hello")
@@ -19,16 +20,9 @@ const Home = () => {
   return (
     <div>
    <Header/>
-     <div className='flex'>
-     <div className='flex h-fit '>
-      {/* <TaskMap userData={userData} /> */}
-      {userData?.username}
+    <ShowUserDetails/>
      </div>
-     {/* <div className='border-2 border-solid border-red-500 p-10'>
-        <ChatFunctionality/>
-        </div> */}
-     </div>
-    </div>
+   
   )
 }
 

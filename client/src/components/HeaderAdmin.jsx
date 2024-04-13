@@ -1,13 +1,15 @@
 import { Button } from 'flowbite-react';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const HeaderAdmin = () => {
+  const navigate=useNavigate()
   
   const handleEmailValue=()=>{
     localStorage.removeItem("token");
     localStorage.removeItem("adminLog");
-    window.location.reload(); 
+    window.location.reload();
+    navigate('/')
    
 }
   return (

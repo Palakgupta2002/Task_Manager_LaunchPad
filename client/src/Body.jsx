@@ -9,6 +9,7 @@ import UserDetails from './Pages/UserDetails';
 import ManagerHome from './Pages/ManagerHome';
 import ViewManagerDetails from './components/ViewManagerDetails';
 import ProjectDetails from './components/ProjectDetails';
+import ShowUserDetails from './components/ShowUserDetails';
 
 const Body = () => {
   const [authenticated, setAuthenticated] = useState(!!localStorage.getItem("Email"));
@@ -23,23 +24,30 @@ const Body = () => {
   return (
     <div className='background'>
       <BrowserRouter>
-        <Routes>
-          {authenticated && isadmin==="false"  ? (
+      <Routes>
+          {authenticated ? (
             <>
-              <Route path="/" element={<Navigate to="/ManagerHome" />} />
-              <Route path="/Home" element={<Home />} />
-              <Route path='/ManagerHome' element={<ManagerHome />} />
-              <Route path='/Projectdetails/:id' element={<ProjectDetails />} />
+              <Route path="/" element={<Navigate to="/Home" />} />
+              <Route path="/Home/:email" element={<Home />} />
+              <Route path='/ManagerHome' element={<ManagerHome/>} />
+              <Route path='/Projectdetails/:id' element={<ProjectDetails/>}/>
+              <Route path='/UserDetails/:email' element={<ShowUserDetails/>} />
             </>
           ) : (
             <>
               <Route path="/SignUp" element={<SignUp />} />
               <Route path="/" element={<SignIn />} />
-              <Route path="/AdminLogin" element={<AdminLogin />} />
-              <Route path="/AdminHome" element={<AdminHome />} />
-              <Route path="/adUserVisit/:email" element={<UserDetails />} />
-              <Route path='/viewManager/:id' element={<ViewManagerDetails />} />
-              <Route path='/Projectdetails/:id' element={<ProjectDetails />} />
+              {isadmin ? (
+                <>
+                  <Route path="/AdminHome" element={<AdminHome />} />
+                  <Route path="/adUserVisit/:email" element={<UserDetails />} />
+                  <Route path='/viewManager/:id' element={<ViewManagerDetails/>}/>
+                  <Route path='/Projectdetails/:id' element={<ProjectDetails/>}/>
+                  <Route path='/UserDetails/:email' element={<ShowUserDetails/>} />
+                </>
+              ) : (
+                <Route path="/AdminLogin" element={<AdminLogin />} />
+              )}
             </>
           )}
         </Routes>
