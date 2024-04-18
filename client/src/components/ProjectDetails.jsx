@@ -6,6 +6,8 @@ import AddTask from './AddTask';
 import KanbanBoard from './KanbanBoard';
 import HeaderAdmin from './HeaderAdmin';
 import Header from './Header';
+import emptyBoxImg from "../assest/unfortunately.png"
+import { Div } from 'nunjucks/src/nodes';
 
 const ProjectDetails = () => {
     const [projectData, setProjectData] = useState({});
@@ -13,9 +15,10 @@ const ProjectDetails = () => {
     const [openModal, setOpenModal] = useState(false);
     const { id } = useParams();
     const userData = useUserData(useremail)
-    const isadmin = localStorage.getItem("adminLog"); 
-   
-    console.log(typeof(admin),"'hello admin")
+    const isadmin = localStorage.getItem("adminLog");
+
+    console.log(typeof (admin), "'hello admin")
+    
 
     console.log(userData, "hello userdata")
     const handleviewDetails = (email) => {
@@ -33,7 +36,7 @@ const ProjectDetails = () => {
                 const response = await fetch(`http://localhost:5000/Project/getProjectDetails/${id}`);
                 if (response.ok) {
                     const data = await response.json();
-                    console.log(data.projectDetails[0], "Received project details"); 
+                    console.log(data.projectDetails[0], "Received project details");
                     console.log("hello")
                     // if (data.projectDetails && data.projectDetails.length > 0) {
                     //     setProjectData(data.projectDetails[0]);
@@ -54,10 +57,11 @@ const ProjectDetails = () => {
 
     return (
         <div className='overflow-y-hidden'>
-            {isadmin==="true"?<HeaderAdmin/>:<Header/>}
-
-            {projectData && projectData.name}
-            <div>
+            {isadmin === "true" ? <HeaderAdmin /> : <Header />}
+            <div className='flex border-b-2 border-solid border-slate-700'>
+            <div className=' p-5'>
+                    <div className='text-2xl'>Welcome,{projectData?.name} Project DashBoard</div>
+                </div>
                 {projectData && projectData.teamMembers && projectData.teamMembers.map((member, index) => (
                     <div className='flex'>
                         <div key={index}>{member}</div>
@@ -79,7 +83,7 @@ const ProjectDetails = () => {
                                                 </div>
                                                 <div>{userData.email}</div>
                                             </div>
-                                            <AddTask email1={userData.email} projectId={projectData._id}/>
+                                            <AddTask email1={userData.email} projectId={projectData._id} />
                                         </div>
                                     )}
                                 </Modal.Body>
@@ -88,8 +92,19 @@ const ProjectDetails = () => {
 
                     </div>
                 ))}
+               
             </div>
-           <KanbanBoard projectData={projectData} />
+
+            {projectData.tasks && projectData?.tasks?.length > 0 ? (
+                <KanbanBoard projectData={projectData} />
+            ) : (
+                <div className='flex justify-center h-auto'>
+                    <div>
+                        <div className='text-center text-2xl'>Sorry, We don't found any Result</div>
+                        <img className='h-30' src={emptyBoxImg} alt="Sorry, We don't found any result" />
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

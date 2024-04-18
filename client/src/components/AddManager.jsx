@@ -40,7 +40,7 @@ const AddManager = () => {
   };
   return (
     <>
-      <Button outline onClick={() => setOpenModal(true)}>Add Manager</Button>
+      <button className='text-2xl' outline onClick={() => setOpenModal(true)}>+</button>
       <Modal dismissible show={openModal} onClose={() => setOpenModal(false)} >
         <div onClick={() => setOpenModal(false)} className='flex justify-end mr-5 text-2xl'>close</div>
         <Modal.Body>

@@ -46,7 +46,7 @@ const Body = () => {
                   <Route path='/UserDetails/:email' element={<ShowUserDetails/>} />
                 </>
               ) : (
-                <Route path="/AdminLogin" element={<AdminLogin />} />
+                <Route path="/AdminLogin" element={<AdminLogin/>} />
               )}
             </>
           )}

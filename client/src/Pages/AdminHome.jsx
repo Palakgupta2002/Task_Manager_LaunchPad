@@ -7,90 +7,91 @@ import ShowManager from '../components/ShowManager';
 import Piechart from '../components/PieChart';
 import ShowUser from '../components/ShowUser';
 import SignUp from './UserSignUp';
+import teamImg from "../assest/team3.png"
+import HiiHand from "../assest/handHii.gif"
+import AdminProfile from "../assest/AdminProfile.png"
+import AdminProjectUI from '../components/AdminProjectUI';
+
 
 const AdminHome = () => {
-  const [sortBy, setSortBy] = useState('');
-  const [search, setSearch] = useState('');
+    const [sortBy, setSortBy] = useState('');
+    const [search, setSearch] = useState('');
+    const [sortByMng, setSortByMng] = useState('');
+    const [searchMng, setSearchMng] = useState('');
+    const [isManager, setManager] = useState("false")
+    const [email,setEmail]=useState(null)
 
 
-  const handleSortChange = (e) => {
-    setSortBy(e.target.value);
-  };
+    const handleSortChange = (e) => {
+        setSortBy(e.target.value);
+    };
 
-  const handleChangeSearch = (e) => {
-    setSearch(e.target.value);
-  };
+    const handleChangeSearch = (e) => {
+        setSearch(e.target.value);
+    };
+    const handleSortChangeMng = (e) => {
+        setSortByMng(e.target.value);
+    };
 
-  return (
-    <div>
-      <HeaderAdmin />
+    const handleChangeSearchMng = (e) => {
+        setSearchMng(e.target.value);
+    };
+  
+        const multicolorStyle = {
+          backgroundImage: 'linear-gradient(45deg, #FF5733, #FFBD33, #33FF57, #337BFF)',
+          WebkitBackgroundClip: 'text',
+          color: 'transparent'
+        }
 
-
-      <div className='w-full border-2px border-solid border-red-700 flex justify-center gap-10 mt-10 shadow-lg overflow-hidden '>
-        <div className='border-2 border-solid border-gray-200 rounded-lg'>
-          <div className='flex p-5 gap-6'>
-            <div className='relative'>
-              <input
-                type='text'
-                className='w-full border border-gray-300 rounded-lg py-2 px-4 outline-none shadow-sm'
-                placeholder='Search...'
-                value={search}
-                onChange={handleChangeSearch}
-              />
-
+    return (
+        <div className='overflow-hidden '>
+            <div><HeaderAdmin /></div>
+            <div className='flex justify-between m-4 gap-10 overflow-hidden'>
+                <div>
+                    <div className='shadow-lg bg-slate-700 rounded-lg'>
+                        <div className='flex justify-between px-5'>
+                            <img src={HiiHand} className='h-28' alt='hii' />
+                            <div className='text-2xl text-nowrap mt-10' style={multicolorStyle}>
+                                Hii, Shivam
+                            </div>
+                            <img src={AdminProfile} className='h-28' alt='AdminProfile' />
+                        </div>
+                    </div>
+                    <div className='shadow-lg'>
+                       <div>
+                       <div className='flex m-5 justify-between h-10 gap-10'>
+                    
+                            <input className='w-80' type='text' placeholder='Search'/>
+                          
+                            <Button outline className='text-nowrap' onClick={() => setManager(!isManager)}>
+                            {
+                                isManager?"View Employees":"View Manager"
+                            }
+                            </Button>
+                            <div>
+                                {
+                                    isManager?<AddManager/>:<SignUp/>
+                                }
+                            </div>
+                            
+                            </div>
+                        
+                           
+                      
+                            <div className='overflow-hidden'>
+                            {
+                                isManager ? <ShowManager setEmail={setEmail} /> : <ShowUser setEmail={setEmail} />
+                            }
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            <div className='rounded-lg text-black w-1/2'>
+            <AdminProjectUI isManager={isManager} email={email}/> 
             </div>
-
-            <div>
-              <select
-                className='border border-gray-300 rounded-lg py-2 px-4 outline-none shadow-sm'
-                value={sortBy}
-                onChange={handleSortChange}
-              >
-                <option value=''>Sort By Name</option>
-                <option value='Asc'>Ascending</option>
-                <option value='Dsc'>Descending</option>
-
-              </select>
-
             </div>
-            <div><AddManager /></div>
-          </div>
-          <ShowManager />
-
         </div>
-        <div className='border-2 border-solid border-gray-200 rounded-lg'>
-          <div className='flex p-5 gap-6'>
-            <div className='relative'>
-              <input
-                type='text'
-                className='w-full border border-gray-300 rounded-lg py-2 px-4 outline-none shadow-sm'
-                placeholder='Search...'
-                value={search}
-                onChange={handleChangeSearch}
-              />
-
-            </div>
-
-            <div>
-              <select
-                className='border border-gray-300 rounded-lg py-2 px-4 outline-none shadow-sm'
-                value={sortBy}
-                onChange={handleSortChange}
-              >
-                <option value=''>Sort By Name</option>
-                <option value='Asc'>Ascending</option>
-                <option value='Dsc'>Descending</option>
-
-              </select>
-
-            </div>
-            <div><SignUp /></div>
-          </div>
-          <ShowUser/>
-        </div>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default AdminHome;

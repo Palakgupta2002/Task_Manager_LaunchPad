@@ -1,8 +1,11 @@
 import React, { useEffect, useContext, useState } from 'react';
+import managerProfile from "../assest/ManagerProfile.png"
+import filter from "../assest/filter.svg"
 
 import { Link, useParams } from 'react-router-dom';
-import { Table } from 'flowbite-react';
+import { Dropdown, Table } from 'flowbite-react';
 import { PieChart, Pie, Sector, Cell } from "recharts";
+
 import Pagination from './Pagination';
 import {
     BarChart,
@@ -18,7 +21,7 @@ import {
     Line,
     Area,
     Scatter
-  } from "recharts";
+} from "recharts";
 
 const data01 = [
     { name: "Group A", value: 400 },
@@ -64,46 +67,46 @@ const dateJson = [
 ]
 const data4 = [
     {
-      name: "Jan",
-      uv: 590,
-      pv: 800,
-      amt: 1400,
-      cnt: 490
+        name: "Jan",
+        uv: 590,
+        pv: 800,
+        amt: 1400,
+        cnt: 490
     },
     {
-      name: "Feb",
-      uv: 868,
-      pv: 967,
-      amt: 1506,
-      cnt: 590
+        name: "Feb",
+        uv: 868,
+        pv: 967,
+        amt: 1506,
+        cnt: 590
     },
     {
-      name: "Mar",
-      uv: 1397,
-      pv: 1098,
-      amt: 989,
-      cnt: 350
+        name: "Mar",
+        uv: 1397,
+        pv: 1098,
+        amt: 989,
+        cnt: 350
     },
     {
-      name: "April",
-      uv: 1480,
-      pv: 1200,
-      amt: 1228,
-      cnt: 480
+        name: "April",
+        uv: 1480,
+        pv: 1200,
+        amt: 1228,
+        cnt: 480
     },
     {
-      name: "May",
-      uv: 1520,
-      pv: 1108,
-      amt: 1100,
-      cnt: 460
+        name: "May",
+        uv: 1520,
+        pv: 1108,
+        amt: 1100,
+        cnt: 460
     },
     {
-      name: "Jun",
-      uv: 1500,
-      pv: 680,
-      amt: 1700,
-      cnt: 380
+        name: "Jun",
+        uv: 1500,
+        pv: 680,
+        amt: 1700,
+        cnt: 380
     },
     {
         name: "Jul",
@@ -111,48 +114,46 @@ const data4 = [
         pv: 680,
         amt: 1700,
         cnt: 380
-      },
-      {
+    },
+    {
         name: "Aug",
         uv: 1400,
         pv: 680,
         amt: 1700,
         cnt: 380
-      },
-      {
+    },
+    {
         name: "Sep",
         uv: 700,
         pv: 680,
         amt: 1700,
         cnt: 380
-      },
-      {
+    },
+    {
         name: "Oct",
         uv: 1000,
         pv: 680,
         amt: 1700,
         cnt: 380
-      },
-      {
+    },
+    {
         name: "Nov",
         uv: 1400,
         pv: 680,
         amt: 1700,
         cnt: 380
-      },
-      {
+    },
+    {
         name: "Dec",
         uv: 1400,
         pv: 680,
         amt: 1700,
         cnt: 380
-      }
-  ];
+    }
+];
 
-const ProjectData = ({email, priorityText, orderText, searchText }) => {
-// const Email = localStorage.getItem("Email"); 
-// const email = JSON.stringify(Email);
-// const unquotedEmail = email.substring(1, email.length - 1);
+const ProjectData = ({ email,setProjectCount,setTaskCount }) => {
+
     const [projects, setProjects] = useState([]);
     const [filteredProjects, setFilteredProjects] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
@@ -160,6 +161,12 @@ const ProjectData = ({email, priorityText, orderText, searchText }) => {
     const [endYear, setEndYear] = useState("2030")
     const [projectCountsByYear, setProjectCountsByYear] = useState({});
     const [priority, setPriority] = useState("All")
+    const [projectCount, setProjectcount] = useState(null)
+    const [showFilter, setShowFilter] = useState(true)
+    const [search, setSearch] = useState(true)
+    const [priorityText, setPriorityText] = useState("All")
+    const [orderText, setOrderText] = useState("Ascending")
+    const [searchText, setSearchText] = useState(null)
 
     const [itemsPerPage] = useState(12);
     const [data, setData] = useState(
@@ -238,7 +245,8 @@ const ProjectData = ({email, priorityText, orderText, searchText }) => {
                 const response = await fetch(`http://localhost:5000/Project/getProject/${email}`);
                 if (response.ok) {
                     const data = await response.json();
-                    setProjects(data.projects); // Assuming the projects array is nested under the 'projects' key
+                    setProjects(data.projects);
+
                 } else {
                     console.log('Failed to fetch data');
                 }
@@ -302,6 +310,8 @@ const ProjectData = ({email, priorityText, orderText, searchText }) => {
 
                 const data = await response.json();
                 setProjectCountsByYear(data.projectCountsByYear);
+                setProjectCount(data.allprojectCount) 
+                setTaskCount(data.totalTasks)
             } catch (error) {
                 console.log(error)
             }
@@ -340,136 +350,127 @@ const ProjectData = ({email, priorityText, orderText, searchText }) => {
 
     return (
         <div>
-            <div>
-                <div className="">
-                    <Table hoverable>
-                        <Table.Head>
-                            <Table.HeadCell>Project Name</Table.HeadCell>
-                            <Table.HeadCell>Description</Table.HeadCell>
-                            <Table.HeadCell>Start Date</Table.HeadCell>
-                            <Table.HeadCell>End Date</Table.HeadCell>
-                            <Table.HeadCell>Priority</Table.HeadCell>
-                            <Table.HeadCell>Action</Table.HeadCell>
-                        </Table.Head>
-
-                        <Table.Body className="divide-y">
-                            {currentItems.map(project => (
-                                <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800" key={project._id}>
-                                    <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                                        {project.name}
-                                    </Table.Cell>
-                                    <Table.Cell>{project.description}</Table.Cell>
-                                    <Table.Cell>{project.startDate.slice(0, 10)}</Table.Cell>
-                                    <Table.Cell>{project.endDate.slice(0, 10)}</Table.Cell>
-                                    <Table.Cell>{project.priority}</Table.Cell>
-
-                                    <Table.Cell>
-                                        <Link to={`/Projectdetails/${project._id}`}>
-                                            <button>See details</button>
-                                        </Link>
-                                    </Table.Cell>
-                                </Table.Row>
-                            ))}
-                        </Table.Body>
-                    </Table>
-                    <Pagination itemsPerPage={itemsPerPage}
-                        totalItems={filteredProjects.length}
-                        paginate={paginate}
-                    />
-
-                </div>
-            </div>
-            <div>
-                <div>
-
-                    <div className='flex overflow-hidden gap-10'>
-
-                        <div className='flex'>
+            <div className=''>
+                <div className='flex justify-between '>
+                    <div>
+                        <div className='flex gap-5 m-8'>
                             <div>
-                                <div className='flex gap-5 m-8'>
-                                    <div>
-                                        <select onChange={(e) => setFun(e)} name="Start" id="Start">
-                                            {
-                                                dateJson && dateJson.map((date) =>
-                                                    <option value={date.date}>{date.date}</option>
-                                                )
-                                            }
-                                        </select>
-                                    </div>
-                                    <div>
-                                        <select onChange={(e) => setPriority(e.target.value)} name="All" id="All">
-                                            <option value="All">All</option>
-                                            <option value="Low">Low</option>
-                                            <option value="Medium">Medium</option>
-                                            <option value="High">High</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <BarChart
-                                    width={700}
-                                    height={470}
-                                    data={data}
-                                    margin={{
-                                        top: 5,
-                                        right: 30,
-                                        left: 20,
-                                        bottom: 5
-                                    }}
-                                    barSize={20}
-                                >
-                                    <XAxis dataKey="name" scale="point" padding={{ left: 10, right: 10 }} />
-                                    <YAxis />
-                                    <Tooltip />
-                                    <Legend />
-                                    <CartesianGrid strokeDasharray="3 3" />
-                                    <Bar dataKey="pv" fill="#0000FF" background={{ fill: "#eee" }} />
-                                </BarChart>
+                                <select onChange={(e) => setFun(e)} name="Start" id="Start">
+                                    {
+                                        dateJson && dateJson.map((date) =>
+                                            <option value={date.date}>{date.date}</option>
+                                        )
+                                    }
+                                </select>
+                            </div>
+                            <div>
+                                <select onChange={(e) => setPriority(e.target.value)} name="All" id="All">
+                                    <option value="All">All</option>
+                                    <option value="Low">Low</option>
+                                    <option value="Medium">Medium</option>
+                                    <option value="High">High</option>
+                                </select>
                             </div>
                         </div>
-                        <div className=''>
-                            <div className='flex gap-5 m-8'>
-                                <div>
-                                    <select name="Start" id="Start">
-                                        <option value="Start">Start Date</option>
-                                        <option value="End">End Date</option>
-                                    </select>
+
+
+                        <BarChart
+                            width={700}
+                            height={270}
+                            data={data}
+                            margin={{
+                                top: 5,
+                                right: 30,
+                                left: 20,
+                                bottom: 5
+                            }}
+                            barSize={20}
+                        >
+                            <XAxis dataKey="name" scale="point" padding={{ left: 10, right: 10 }} />
+                            <YAxis />
+                            <Tooltip />
+                            <Legend />
+                            <CartesianGrid strokeDasharray="3 3" />
+                            <Bar dataKey="pv" fill="#0000FF" background={{ fill: "#eee" }} />
+                        </BarChart>
+                    </div>
+                    <div>
+                        <div className="">
+                            <div className='flex justify-between m-10'>
+                                <div className='flex gap-10'>
+
+                                    <div onClick={() => setShowFilter(!showFilter)} className='flex gap-4 text-lg font-bold text-blue-800' ><img className='-mt-2' width={"20px"} src={filter} alt='filterImage' /> <h2>Filter</h2></div>
+                                    {
+                                        showFilter ? "" :
+                                            <div className='flex gap-10'>
+                                                <div>
+                                                    <Dropdown label={`${priorityText}`}>
+                                                        <Dropdown.Item onClick={() => setPriorityText("All")}>All</Dropdown.Item>
+                                                        <Dropdown.Item onClick={() => setPriorityText("High")}>High</Dropdown.Item>
+                                                        <Dropdown.Item onClick={() => setPriorityText("Medium")}>Medium</Dropdown.Item>
+                                                        <Dropdown.Item onClick={() => setPriorityText("Low")}>Low</Dropdown.Item>
+                                                    </Dropdown>
+                                                </div>
+                                                <div>
+                                                    <Dropdown label={`${orderText}`}>
+                                                        <Dropdown.Item onClick={() => setOrderText("asc")}>Ascending</Dropdown.Item>
+                                                        <Dropdown.Item onClick={() => setOrderText("desc")}>Descending</Dropdown.Item>
+                                                    </Dropdown>
+
+                                                </div>
+                                            </div>
+                                    }
+
+                                    <div className='text-lg font-bold text-blue-800' onClick={() => setSearch(!search)}>Search</div>
+                                    {
+                                        search ? "" : <div className=''><input onChange={(e) => setSearchText(e.target.value)} type='text' placeholder='Search' /></div>
+                                    }
                                 </div>
-                                <div>
-                                    <select name="All" id="All">
-                                        <option value="High">High</option>
-                                        <option value="Low">Low</option>
-                                        <option value="Medium">Medium</option>
-                                        <option value="All">All</option>
-                                    </select>
-                                </div>
+
                             </div>
-                            <ComposedChart
-                                width={600}
-                                height={480}
-                                data={data4}
-                                margin={{
-                                    top: 20,
-                                    right: 20,
-                                    bottom: 20,
-                                    left: 20
-                                }}
-                            >
-                                <CartesianGrid stroke="#f5f5f5" />
-                                <XAxis dataKey="name" />
-                                <YAxis />
-                                <Tooltip />
-                                <Legend />
-                                <Area type="monotone" dataKey="amt" fill="#8884d8" stroke="#8884d8" />
-                                <Bar dataKey="pv" barSize={20} fill="#8884d8" />
-                                <Line type="monotone" dataKey="uv" stroke="#ff7300" />
-                                <Scatter dataKey="cnt" fill="red" />
-                            </ComposedChart>
+                            <div style={{ maxHeight: '200px',overflowY: 'auto',overflowX:'auto' }}>
+                                <Table hoverable>
+                                    <Table.Head>
+                                        <Table.HeadCell>Project Name</Table.HeadCell>
+                                        <Table.HeadCell>Description</Table.HeadCell>
+                                        <Table.HeadCell>Start Date</Table.HeadCell>
+                                        <Table.HeadCell>End Date</Table.HeadCell>
+                                        <Table.HeadCell>Priority</Table.HeadCell>
+                                        <Table.HeadCell>Action</Table.HeadCell>
+                                    </Table.Head>
+
+                                    <Table.Body className="divide-y">
+                                        {currentItems.map(project => (
+                                            <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800" key={project._id}>
+                                                <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                                                    {project.name}
+                                                </Table.Cell>
+                                                <Table.Cell>{project.description}</Table.Cell>
+                                                <Table.Cell>{project.startDate.slice(0, 10)}</Table.Cell>
+                                                <Table.Cell>{project.endDate.slice(0, 10)}</Table.Cell>
+                                                <Table.Cell>{project.priority}</Table.Cell>
+
+                                                <Table.Cell>
+                                                    <Link to={`/Projectdetails/${project._id}`}>
+                                                        <button>See details</button>
+                                                    </Link>
+                                                </Table.Cell>
+                                            </Table.Row>
+                                        ))}
+                                    </Table.Body>
+                                </Table>
+                                <Pagination itemsPerPage={itemsPerPage}
+                                    totalItems={filteredProjects.length}
+                                    paginate={paginate}
+                                />
+                            </div>
+
                         </div>
                     </div>
-
                 </div>
-
             </div>
+
+
         </div>
     );
 };

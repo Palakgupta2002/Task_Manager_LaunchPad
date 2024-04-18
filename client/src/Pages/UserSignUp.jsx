@@ -50,7 +50,7 @@ const SignUp = () => {
 
   return (
     <>
-      <Button outline onClick={() => setOpenModal(true)}> Add Employee</Button>
+      <button  className="text-3xl " outline onClick={() => setOpenModal(true)}>+</button>
       <Modal show={openModal} onClose={() => setOpenModal(false)}>
         <Modal.Header>Add Employee</Modal.Header>
         <Modal.Body>

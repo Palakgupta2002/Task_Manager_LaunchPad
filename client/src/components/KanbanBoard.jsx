@@ -285,3 +285,4 @@ const KanbanBoard = ({ projectData }) => {
 };
 
 export default KanbanBoard;
+

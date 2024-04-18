@@ -3,10 +3,14 @@ import { useParams } from 'react-router-dom';
 import HeaderAdmin from './HeaderAdmin';
 import ProjectDetails from './ProjectDetails';
 import ProjectData from './ProjectData';
+import managerProfile from "../assest/ManagerProfile.png"
+import Card from './Card';
 
 const ViewManagerDetails = () => {
     const [manager, setManager] = useState(null);
     const [project, setProject] = useState(null); 
+    const [projectCount,setProjectCount]=useState(null)
+    const[taskCount,setTaskCount]=useState(null)
     const { id } = useParams();
 
     useEffect(() => {
@@ -45,17 +49,15 @@ const ViewManagerDetails = () => {
     return (
         <div>
             <HeaderAdmin/>
-            <div>
-            {manager && (
-                <div>
-                    <h2>Manager Details</h2>
-                    <p>ID: {manager.MUniqueID}</p>
-                    <p>Name: {manager.Musername}</p>
-                    <p>Email: {manager.Memail}</p>
-                </div>
-            )}
-            </div>
-           <ProjectData email={id}/>
+            <div className='flex  border-2 border-solid border-gray-600' >
+                                <div><img className='h-32' src={managerProfile} alt='Profile photo'/></div>
+                                <div className=''>
+                                    <div className='text-2xl mt-10'>Welcome in  {manager?.Musername} Dashboard</div>
+                                </div>
+                               <Card title={"Total Number of Projects"}count={projectCount} />
+                               <Card title={"Total Number of Tasks"}count={taskCount} /> 
+                            </div>
+           <ProjectData email={id} setProjectCount={setProjectCount} setTaskCount={setTaskCount}/>
         </div>
     );
 };
