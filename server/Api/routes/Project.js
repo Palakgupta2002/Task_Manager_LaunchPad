@@ -72,10 +72,21 @@ router.get('/getProjectDetails/:id',async(req,res)=>{
     }
 })
 router.post('/countProjectsByManagerAndYear', async (req, res) => {
+    let allprojectCount=0;
+    let totalTasks = 0;
     try {
         const { managerEmail, startYear, endYear, priority } = req.body;
 
         const projectCountsByYear = {};
+  
+            const allProjects = await Project.find({
+   
+            });
+            allprojectCount=allProjects.length;
+            allProjects.forEach(project => {
+                totalTasks += project.tasks.length; 
+            });
+        
 
        
         if (priority === 'All') {
@@ -86,6 +97,7 @@ router.post('/countProjectsByManagerAndYear', async (req, res) => {
                 });
 
                 projectCountsByYear[year] = allProjects.length;
+                
             }
             
            
@@ -103,7 +115,7 @@ router.post('/countProjectsByManagerAndYear', async (req, res) => {
             }
         }
 
-        res.json({ message: 'Project counts by year retrieved successfully', projectCountsByYear });
+        res.json({ message: 'Project counts by year retrieved successfully', projectCountsByYear,allprojectCount,totalTasks });
     } catch (error) {
         console.error('Error counting projects by manager and year:', error);
         return res.status(500).json({ message: 'Internal server error' });
