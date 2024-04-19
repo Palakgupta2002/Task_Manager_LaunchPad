@@ -5,8 +5,8 @@ import 'react-datepicker/dist/react-datepicker.css';
 
 
 const TaskForm = ({ setOpenModal, email,projectId}) => {
-
-
+  console.log(projectId,"hello project id")
+  
   const [formData, setFormData] = useState({
     title: '',
     description: '',
@@ -34,17 +34,18 @@ const TaskForm = ({ setOpenModal, email,projectId}) => {
     try {
       setLoading(true);
       setErrorMessage(null);
-      const res = await fetch(`http://localhost:5000/task/${email}/${projectId}/tasks`, {
+      const res = await fetch(`http://localhost:5000/task/${email}/${projectId.id}/tasks`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
       const data = await res.json();
-      // console.log(res,"hello response task")
+      console.log(data,"hello data")
+      
       if (res.ok) {
         setFormData({});
         setLoading(false);
-        // Redirect or show success message after successful signup
+        
       } else {
         setErrorMessage(data.message);
         setLoading(false);
@@ -54,7 +55,7 @@ const TaskForm = ({ setOpenModal, email,projectId}) => {
       setLoading(false);
     }
   };
-  console.log(formData,"hello")
+  
 
   return (
     <div className="bg-white rounded-lg p-6 md:p-8 lg:p-10">

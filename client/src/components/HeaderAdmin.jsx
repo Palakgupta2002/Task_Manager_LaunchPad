@@ -8,6 +8,7 @@ const HeaderAdmin = () => {
   const handleEmailValue=()=>{
     localStorage.removeItem("token");
     localStorage.removeItem("adminLog");
+    localStorage.removeItem("userLog");
     window.location.reload();
     navigate('/')
    

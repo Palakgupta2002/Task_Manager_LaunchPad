@@ -155,7 +155,7 @@ const KanbanBoard = ({ projectData }) => {
 
   useEffect(() => {
     fetchTaskData();
-  }, []);
+  }, [taskData]);
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -268,7 +268,7 @@ const KanbanBoard = ({ projectData }) => {
                     <Table.Cell>{task.status1}</Table.Cell>
                     <Table.Cell>{task.dueDate.slice(0, 10)}</Table.Cell>
                     <Table.Cell>{task.email}</Table.Cell>
-                    <Table.Cell>edit,delete</Table.Cell>
+                    <Table.Cell>edit</Table.Cell>
                   </Table.Row>
                 </Table.Body>
               ))

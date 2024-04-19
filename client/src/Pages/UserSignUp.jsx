@@ -36,7 +36,7 @@ const SignUp = () => {
         setLoading(false);
         alert("Sign up succesfully")
         navigate('/signIn')
-        // Redirect or show success message after successful signup
+        
       } else {
         setErrorMessage(data.message);
         setLoading(false);

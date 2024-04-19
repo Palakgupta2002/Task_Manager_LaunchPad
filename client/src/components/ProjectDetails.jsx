@@ -16,9 +16,10 @@ const ProjectDetails = () => {
     const { id } = useParams();
     const userData = useUserData(useremail)
     const isadmin = localStorage.getItem("adminLog");
+    const isUser = localStorage.getItem("userLog");
 
-    console.log(typeof (admin), "'hello admin")
-    
+   
+
 
     console.log(userData, "hello userdata")
     const handleviewDetails = (email) => {
@@ -54,48 +55,59 @@ const ProjectDetails = () => {
             // Cleanup function if necessary
         };
     }, [id]);
+    const getRandomColor = () => {
+        const colors = ['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'purple'];
+        return colors[Math.floor(Math.random() * colors.length)];
+    };
 
     return (
         <div className='overflow-y-hidden'>
             {isadmin === "true" ? <HeaderAdmin /> : <Header />}
-            <div className='flex border-b-2 border-solid border-slate-700'>
-            <div className=' p-5'>
+            <div className='flex  border-b-2 border-solid border-slate-700 justify-between'>
+                <div className=' p-5'>
                     <div className='text-2xl'>Welcome,{projectData?.name} Project DashBoard</div>
                 </div>
-                {projectData && projectData.teamMembers && projectData.teamMembers.map((member, index) => (
-                    <div className='flex'>
-                        <div key={index}>{member}</div>
-                        <Button onClick={() => handleviewDetails(member)}>view details</Button>
+                <div className='mt-5 flex justify-end' >
+                    {projectData && projectData.teamMembers && projectData.teamMembers.map((member, index) => (
+                        <div key={index}>
 
-                        <>
-                            <Modal show={openModal} onClose={() => setOpenModal(false)}>
-                                <Modal.Header>Employee Details</Modal.Header>
-                                <Modal.Body>
-                                    {userData && (
-                                        <div className='flex justify-center items-center mt-3'>
-                                            <div>
-                                                <div >
-                                                    <div className="w-40 h-40 rounded-full bg-gray-200 flex items-center justify-center m-2">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-20 h-20 text-gray-600">
-                                                            <text x="50%" y="50%" dominantBaseline="middle" textAnchor="middle" fontSize="18" fill="currentColor">{initials}</text>
-                                                        </svg>
+                            <button onClick={() => handleviewDetails(member)}>
+                                <div  className='h-10 w-10 border-solid border-2 border-white text-white rounded-3xl flex justify-center' style={{ backgroundColor: getRandomColor() }}>
+                                    <h2>{member.slice(0, 2)}</h2>
+                                </div>
+                            </button>
+
+
+                            <>
+                                <Modal show={openModal} onClose={() => setOpenModal(false)}>
+                                    <Modal.Header>Employee Details</Modal.Header>
+                                    <Modal.Body>
+                                        {userData && (
+                                            <div className='flex justify-center items-center mt-3'>
+                                                <div>
+                                                    <div >
+                                                        <div className="w-40 h-40 rounded-full bg-gray-200 flex items-center justify-center m-2">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-20 h-20 text-gray-600">
+                                                                <text x="50%" y="50%" dominantBaseline="middle" textAnchor="middle" fontSize="18" fill="currentColor">{initials}</text>
+                                                            </svg>
+                                                        </div>
                                                     </div>
+                                                    <div>{userData.email}</div>
                                                 </div>
-                                                <div>{userData.email}</div>
+                                                {isUser?"":<AddTask email1={userData.email} projectId={projectData._id} />}
                                             </div>
-                                            <AddTask email1={userData.email} projectId={projectData._id} />
-                                        </div>
-                                    )}
-                                </Modal.Body>
-                            </Modal>
-                        </>
+                                        )}
+                                    </Modal.Body>
+                                </Modal>
+                            </>
 
-                    </div>
-                ))}
-               
+                        </div>
+                    ))}
+                </div>
+
             </div>
 
-            {projectData.tasks && projectData?.tasks?.length > 0 ? (
+            {projectData?.tasks && projectData?.tasks?.length > 0 ? (
                 <KanbanBoard projectData={projectData} />
             ) : (
                 <div className='flex justify-center h-auto'>

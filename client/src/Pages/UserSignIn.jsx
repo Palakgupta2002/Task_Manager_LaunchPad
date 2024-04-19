@@ -52,6 +52,7 @@ const SignIn = () => {
         localStorage.setItem('token', data.token);
         localStorage.setItem('Email',data.email);
         localStorage.setItem("adminLog",data.isAdmin)
+        localStorage.setItem("userLog",data.isUser)
 
        
        if(uniqueId.includes("user"))
