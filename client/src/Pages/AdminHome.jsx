@@ -52,7 +52,7 @@ const AdminHome = () => {
                         <div className='flex justify-between px-5'>
                             <img src={HiiHand} className='h-28' alt='hii' />
                             <div className='text-2xl text-nowrap mt-10' style={multicolorStyle}>
-                                Hii, Shivam
+                                Hii, Admin
                             </div>
                             <img src={AdminProfile} className='h-28' alt='AdminProfile' />
                         </div>

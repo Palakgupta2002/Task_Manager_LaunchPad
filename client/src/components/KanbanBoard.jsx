@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import "../App.css"
 import { useParams } from 'react-router-dom';
+import deleteIcon from "../assest/delete.svg"
+import edit from "../assest/Edit.svg"
 import KanbanBoardCard from './KanbanBoardCard';
 import todo from "../assest/todo.svg"
 import progress from "../assest/in-progress.svg"
@@ -8,6 +10,9 @@ import blocked from "../assest/blocked.svg"
 import complete from "../assest/completed.svg"
 import plus from "../assest/plus.svg"
 import KanabanHeader from './KanabanHeader';
+import { Dropdown, Modal } from "flowbite-react";
+import axios from 'axios';
+import updateIcon from "../assest/Update.svg"
 import {
   BarChart,
   Bar,
@@ -20,7 +25,7 @@ import {
 } from "recharts";
 import { PieChart, Pie, Cell } from "recharts";
 
-import { Label, Table } from "flowbite-react";
+import { Button, Label, Table } from "flowbite-react";
 import Pagination from './Pagination';
 import ProgessCard from './ProgessCard';
 const RADIAN = Math.PI / 180;
@@ -58,6 +63,11 @@ const KanbanBoard = ({ projectData }) => {
   const [itemsPerPage] = useState(5);
   const { startDate, endDate } = projectData;
   const [selectedYear, setSelectedYear] = useState(startDate);
+  const [confirmationVisible, setConfirmationVisible] = useState(false);
+  const [openModalId, setOpenModalId] = useState(null);
+  const [showAlert, setShowAlert] = useState(false);
+  const isUser = localStorage.getItem("userLog");
+  
   const data = [
     {
       name: "Jan",
@@ -156,6 +166,32 @@ const KanbanBoard = ({ projectData }) => {
   useEffect(() => {
     fetchTaskData();
   }, [taskData]);
+  const handleDelete = async (id) => {
+    try {
+      const response = await fetch(`http://localhost:5000/task/tasks/${id}`, {
+        method: 'DELETE'
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        alert(data.message);
+      } else {
+        const errorData = await response.json();
+        alert(errorData.error);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('An error occurred while deleting the task.');
+    }
+  };
+
+  const handleConfirmation = (id) => {
+    const confirmation = window.confirm('Are you sure you want to delete the task?');
+
+    if (confirmation) {
+      handleDelete(id);
+    }
+  };
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -188,6 +224,35 @@ const KanbanBoard = ({ projectData }) => {
       pv: monthTasks ? monthTasks.length : 0 // Update pv value with task length for the month
     };
   });
+  const [newStatus, setNewStatus] = useState(null);
+
+  const handleStatusChange = (e) => {
+    setNewStatus(e.target.value);
+  };
+
+  const handleUpdateStatus = async (taskid,email) => {
+    try {
+      const response = await fetch(`http://localhost:5000/task/${email}/${id}/${taskid}/status`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          status: newStatus,
+        }),
+      });
+  
+      if (response.ok) {
+        setShowAlert(true);
+      } else {
+        alert(response.status)
+        console.error('Error updating status:', response.status);
+      }
+    } catch (error) {
+      console.error('Error updating status:', error);
+    }
+  };
+  
 
   return (
     <div>
@@ -201,7 +266,7 @@ const KanbanBoard = ({ projectData }) => {
           <BarChart
             width={700}
             height={400}
-            data={updatedData} 
+            data={updatedData}
             margin={{
               top: 5,
               right: 30,
@@ -268,7 +333,77 @@ const KanbanBoard = ({ projectData }) => {
                     <Table.Cell>{task.status1}</Table.Cell>
                     <Table.Cell>{task.dueDate.slice(0, 10)}</Table.Cell>
                     <Table.Cell>{task.email}</Table.Cell>
-                    <Table.Cell>edit</Table.Cell>
+                    <Table.Cell>{task._id}</Table.Cell>
+                    <Table.Cell>
+                      {isUser === "true" ? (
+
+                        <div>
+                          <>
+                            <button onClick={() => setOpenModalId(task._id)}>Edit Status</button>
+                            <Modal dismissible show={openModalId === task._id} onClose={() => setOpenModalId(null)}>
+                              <Modal.Header>{task.title}</Modal.Header>
+                              <Modal.Body>
+                                <div className="p-4 bg-gray-100 dark:bg-gray-800 rounded-md">
+                                  <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">{task.title}</h2>
+                                  <div className="grid grid-cols-2 gap-4">
+                                    <div className='flex gap-6'>
+                                      <div>
+                                        <p className="text-gray-700 dark:text-gray-300 font-medium">Status:</p>
+                                        <select name="status" id="status" className="text-gray-900 dark:text-white p-2" value={newStatus} onChange={handleStatusChange}>
+                                          <option value="in progress">in Progress</option>
+                                          <option value="completed">Completed</option>
+                                          <option value="blocked">Blocked</option>
+                                          <option value="todo">ToDo</option>
+                                        </select>
+                                      </div>
+                                      <button className="text-gray-900 dark:text-white" onClick={()=>handleUpdateStatus(task._id, task.email)}>
+                                        <img src={updateIcon} alt='update.svg' />
+                                      </button>
+                                      {showAlert && (
+                                        <div className="alert alert-success" role="alert">
+                                          Status updated successfully!
+                                        </div>
+                                      )}
+                                    </div>
+                                    <div>
+                                      <p className="text-gray-700 dark:text-gray-300 font-medium">Priority:</p>
+                                      <p className="text-gray-900 dark:text-white">{task.priority}</p>
+                                    </div>
+                                    <div>
+                                      <p className="text-gray-700 dark:text-gray-300 font-medium">DueDate:</p>
+                                      <p className="text-gray-900 dark:text-white">{task.dueDate.slice(0, 10)}</p>
+                                    </div>
+                                    <div>
+                                      <p className="text-gray-700 dark:text-gray-300 font-medium">Email:</p>
+                                      <p className="text-gray-900 dark:text-white">{task.email}</p>
+                                    </div>
+                                  </div>
+                                </div>
+                              </Modal.Body>
+
+                            </Modal>
+                          </>
+                        </div>
+                      ) : (
+
+                        <div className='flex gap-5'>
+                          <button onClick={() => handleConfirmation(task._id, task.email)}><img src={deleteIcon} alt='delete' /></button>
+                          <div>
+                            {/* <>
+                              <button className='mt-4' onClick={() => setOpenModal(true)}><img width={"60px"} src={edit} alt='edit' /></button>
+                              <Modal dismissible show={openModal} onClose={() => setOpenModal(false)}>
+                                <Modal.Header>Update Task info</Modal.Header>
+                                <Modal.Body>
+                               
+                                </Modal.Body>
+                              </Modal>
+                            </> */}
+                          </div>
+                        </div>
+                      )}
+                    </Table.Cell>
+
+
                   </Table.Row>
                 </Table.Body>
               ))

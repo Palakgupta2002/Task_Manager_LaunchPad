@@ -94,7 +94,7 @@ const ProjectDetails = () => {
                                                     </div>
                                                     <div>{userData.email}</div>
                                                 </div>
-                                                {isUser?"":<AddTask email1={userData.email} projectId={projectData._id} />}
+                                                {isUser==="true"?"":<AddTask email1={userData.email} projectId={projectData._id} />}
                                             </div>
                                         )}
                                     </Modal.Body>

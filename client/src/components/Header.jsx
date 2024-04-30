@@ -11,6 +11,7 @@ const handleEmailValue=()=>{
   localStorage.removeItem("Email");
     localStorage.removeItem("token");
     localStorage.removeItem("adminLog");
+    localStorage.removeItem("userLog");
     navigate('/')
     window.location.reload(); 
 }
