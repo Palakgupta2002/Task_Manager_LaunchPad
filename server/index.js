@@ -9,9 +9,6 @@ import userData from "./Api/routes/userGet.js"
 import Admin from "./Api/routes/adminAuth.js"
 import getAllUser from "./Api/routes/allUserGet.js"
 import UserDelete from "./Api/routes/deleteUser.js"
-import UpdateUserTask from "./Api/routes/taskComplete.js"
-import deleteTask from "./Api/routes/taskDelete.js"
-import updateTask from "./Api/routes/updateTask.js"
 import manager from "./Api/routes/Manager.js"
 import project from "./Api/routes/Project.js"
 import dotenv from "dotenv"
@@ -47,11 +44,6 @@ app.use('/allUser',getAllUser)
 
 app.use('/deleteUser',UserDelete)
 
-app.use('/updateTask',UpdateUserTask)
-
-app.use('/deleteTask',deleteTask)
-
-app.use('/updateTaskID',updateTask)
 
 app.use('/ManagerData',manager)
 

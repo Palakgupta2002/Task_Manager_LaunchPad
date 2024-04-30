@@ -92,7 +92,7 @@ router.post('/login', async (req, res) => {
       process.env.JWT_SECRET_KEY,
       { expiresIn: '1d' },
     )
-    res.json({ email: manager.Memail, token,isAdmin:"false" })
+    res.json({ email: manager.Memail, token,isAdmin:"false",isUser:"false"})
   } catch (error) {
     console.error('Error during manager login:', error)
     res.status(500).json({ message: 'Internal server error' })
