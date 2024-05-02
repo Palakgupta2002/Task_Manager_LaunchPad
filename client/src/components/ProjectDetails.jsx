@@ -67,7 +67,7 @@ const ProjectDetails = () => {
                 <div className=' p-5'>
                     <div className='text-2xl'>Welcome,{projectData?.name} Project DashBoard</div>
                 </div>
-                <div className='mt-5 flex justify-end' >
+                <div className='md:mt-5 flex justify-end' >
                     {projectData && projectData.teamMembers && projectData.teamMembers.map((member, index) => (
                         <div key={index}>
 

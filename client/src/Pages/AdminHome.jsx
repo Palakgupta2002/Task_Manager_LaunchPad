@@ -44,14 +44,14 @@ const AdminHome = () => {
         }
 
     return (
-        <div className='overflow-hidden '>
+        <div className=''>
             <div><HeaderAdmin /></div>
-            <div className='flex justify-between m-4 gap-10 overflow-hidden'>
+            <div className='md:flex justify-between m-4 gap-10 '>
                 <div>
                     <div className='shadow-lg bg-slate-700 rounded-lg'>
                         <div className='flex justify-between px-5'>
                             <img src={HiiHand} className='h-28' alt='hii' />
-                            <div className='text-2xl text-nowrap mt-10' style={multicolorStyle}>
+                            <div className='text-xl md:text-2xl text-nowrap mt-10' style={multicolorStyle}>
                                 Hii, Admin
                             </div>
                             <img src={AdminProfile} className='h-28' alt='AdminProfile' />
@@ -78,7 +78,7 @@ const AdminHome = () => {
                         
                            
                       
-                            <div className='overflow-hidden'>
+                            <div className=''>
                             {
                                 isManager ? <ShowManager setEmail={setEmail} /> : <ShowUser setEmail={setEmail} />
                             }
@@ -86,7 +86,7 @@ const AdminHome = () => {
                         </div>
                     </div>
                 </div>
-            <div className='rounded-lg text-black w-1/2'>
+            <div className='w-full md:rounded-lg text-black w-1/2'>
             <AdminProjectUI isManager={isManager} email={email}/> 
             </div>
             </div>

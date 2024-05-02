@@ -49,7 +49,7 @@ const ViewManagerDetails = () => {
     return (
         <div>
             <HeaderAdmin/>
-            <div className='flex  border-2 border-solid border-gray-600' >
+            <div className='md:flex  border-2 border-solid border-gray-600' >
                                 <div><img className='h-32' src={managerProfile} alt='Profile photo'/></div>
                                 <div className=''>
                                     <div className='text-2xl mt-10'>Welcome in  {manager?.Musername} Dashboard</div>

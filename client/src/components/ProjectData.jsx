@@ -351,7 +351,7 @@ const ProjectData = ({ email,setProjectCount,setTaskCount }) => {
     return (
         <div>
             <div className=''>
-                <div className='flex justify-between '>
+                <div className='md:flex justify-between'>
                     <div>
                         <div className='flex gap-5 m-8'>
                             <div>

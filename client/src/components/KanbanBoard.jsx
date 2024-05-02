@@ -140,6 +140,31 @@ const KanbanBoard = ({ projectData }) => {
       amt: 2100
     }
   ]
+  const [cx, setCx] = useState(280);
+  const [cy, setCy] = useState(200);
+  useEffect(() => {
+    const handleResize = () => {
+     
+      if (window.innerWidth <= 768) {
+        
+        setCx(150);
+        setCy(170);
+      } else {
+        
+        setCx(280);
+        setCy(200);
+      }
+    };
+
+  
+    handleResize();
+    window.addEventListener('resize', handleResize);
+
+    
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   const generateYearsArray = (start, end) => {
     const startYear = new Date(start).getFullYear();
@@ -256,7 +281,7 @@ const KanbanBoard = ({ projectData }) => {
 
   return (
     <div>
-      <div className='flex'>
+      <div className='md:flex'>
         <div>
           <select className='ml-20 mt-3 mb-10' onChange={(e) => setSelectedYear(e.target.value)} name="Start" id="Start">
             {yearsArray.map((year, index) => (
@@ -284,7 +309,7 @@ const KanbanBoard = ({ projectData }) => {
           </BarChart>
         </div>
         <div>
-          <div className='flex gap-10'>
+          <div className='grid grid-cols-2 md:flex gap-10'>
             <ProgessCard Cardcolor={"#0088FE"} countOfStatus={countStatus("todo")} typeOfStaus={"Todo"} />
             <ProgessCard Cardcolor={"#00C49F"} countOfStatus={countStatus("in progress")} typeOfStaus={"In Progress"} />
             <ProgessCard Cardcolor={"#FFBB28"} countOfStatus={countStatus("blocked")} typeOfStaus={"Blocked"} />
@@ -293,8 +318,8 @@ const KanbanBoard = ({ projectData }) => {
           <PieChart width={400} height={400}>
             <Pie
               data={data1}
-              cx={280}
-              cy={200}
+              cx={cx}
+              cy={cy}
               labelLine={false}
               label={renderCustomizedLabel}
               outerRadius={80}
