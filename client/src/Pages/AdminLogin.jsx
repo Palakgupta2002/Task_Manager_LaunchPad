@@ -20,7 +20,7 @@ const AdminLogin = () => {
     e.preventDefault();
     try {
       setLoading(true)
-      const response = await fetch('http://localhost:5000/admin/Adlogin', {
+      const response = await fetch('https://task-manager-launchpad.onrender.com/admin/Adlogin', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -35,7 +35,6 @@ const AdminLogin = () => {
         navigate('/AdminHome')
         window.location.reload();
 
-        // console.log('Login successful');
       } else {
         // Handle failed login
         setErrorMessage("invalid username or password")
@@ -63,11 +62,11 @@ const AdminLogin = () => {
             Task Manager
           </div>
         </div>
-        <p className="text-lg font-bold">Dummy Credentials</p>
+        {/* <p className="text-lg font-bold">Dummy Credentials</p>
         <div className='shadow-lg border border-gray-200 p-4'>
           <p>Admin Mail: admin700@gmail.com</p>
           <p>Password: admin</p>
-        </div>
+        </div> */}
 
         <div>
           <div className="bg-white shadow-md rounded-md p-6">

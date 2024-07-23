@@ -6,11 +6,12 @@ const HeaderAdmin = () => {
   const navigate=useNavigate()
   
   const handleEmailValue=()=>{
+    navigate('/')
     localStorage.removeItem("token");
     localStorage.removeItem("adminLog");
     localStorage.removeItem("userLog");
-    window.location.reload();
-    navigate('/')
+    
+   
    
 }
   return (

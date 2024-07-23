@@ -3,19 +3,21 @@ import ViewManagerDetails from './ViewManagerDetails';
 import { Link } from 'react-router-dom';
 import { Table } from 'flowbite-react';
 
-const ShowManager = ({setEmail}) => {
+const ShowManager = ({setEmail,searchData}) => {
     const [managers, setManagers] = useState([]);
+    const [filterManager,setFilterManager]=useState([])
     
 
     const fetchManagers=async ()=>{
         try{
-            const response=await fetch("http://localhost:5000/ManagerData/");
+            const response=await fetch("https://task-manager-launchpad.onrender.com/ManagerData/");
             if(!response.ok){
                 throw new Error('Failed to fetch managers');
             }
             const data = await response.json();
             console.log(data)
             setManagers(data?.managers);
+            setFilterManager(data?.manager);
         }
         catch(error){
             console.error('Error fetching managers:', error);
@@ -23,8 +25,20 @@ const ShowManager = ({setEmail}) => {
 
     }
     useEffect(() => {
-        fetchManagers(); // Fetch managers when component mounts
+        fetchManagers(); 
       }, []);
+
+      useEffect(() => {
+        if (searchData) {
+            const filteredData = managers?.filter(manager => 
+                manager?.MUniqueID?.toLowerCase()?.includes(searchData.toLowerCase())
+            );
+            setFilterManager(filteredData);
+        } else {
+            setFilterManager(managers);
+        }
+    }, [searchData, managers]);
+
   return (
     <div className='' style={{ maxHeight: '300px', overflowY: 'auto' }}>
     <h2 className='bg-slate-700 text-center text-white text-2xl'>All Managers</h2>
@@ -40,7 +54,7 @@ const ShowManager = ({setEmail}) => {
           </Table.HeadCell>
         </Table.Head>
         <Table.Body className="divide-y">
-           {managers?.map(manager => (
+           {filterManager?.map(manager => (
           <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800" key={manager?._id}>
             <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">{manager?.MUniqueID}</Table.Cell>
             

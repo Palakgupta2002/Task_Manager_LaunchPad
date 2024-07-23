@@ -47,7 +47,7 @@ const unquotedEmail = email.substring(1, email.length - 1);
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch('http://localhost:5000/Project/CreateProject', {
+      const res = await fetch('https://task-manager-launchpad.onrender.com/Project/CreateProject', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),

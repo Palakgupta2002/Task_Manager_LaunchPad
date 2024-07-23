@@ -34,7 +34,7 @@ const TaskForm = ({ setOpenModal, email,projectId}) => {
     try {
       setLoading(true);
       setErrorMessage(null);
-      const res = await fetch(`http://localhost:5000/task/${email}/${projectId.id}/tasks`, {
+      const res = await fetch(`https://task-manager-launchpad.onrender.com/task/${email}/${projectId.id}/tasks`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),

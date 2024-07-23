@@ -242,7 +242,7 @@ const ProjectData = ({ email,setProjectCount,setTaskCount }) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(`http://localhost:5000/Project/getProject/${email}`);
+                const response = await fetch(`https://task-manager-launchpad.onrender.com/Project/getProject/${email}`);
                 if (response.ok) {
                     const data = await response.json();
                     setProjects(data.projects);
@@ -291,7 +291,7 @@ const ProjectData = ({ email,setProjectCount,setTaskCount }) => {
     useEffect(() => {
         const fetchProjectCounts = async () => {
             try {
-                const response = await fetch('http://localhost:5000/Project/countProjectsByManagerAndYear', {
+                const response = await fetch('https://task-manager-launchpad.onrender.com/Project/countProjectsByManagerAndYear', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

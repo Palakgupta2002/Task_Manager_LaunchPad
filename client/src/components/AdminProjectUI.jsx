@@ -17,9 +17,9 @@ const AdminProjectUI = ({ isManager, email }) => {
             try {
                 let apiUrl = '';
                 if (isManager) {
-                    apiUrl = `http://localhost:5000/ManagerData/getOneManager/${email}`;
+                    apiUrl = `https://task-manager-launchpad.onrender.com/ManagerData/getOneManager/${email}`;
                 } else {
-                    apiUrl = `http://localhost:5000/user/users/${email}`;
+                    apiUrl = `https://task-manager-launchpad.onrender.com/user/users/${email}`;
                 }
 
                 const response = await fetch(apiUrl);
@@ -45,7 +45,7 @@ const AdminProjectUI = ({ isManager, email }) => {
     useEffect(() => {
         const getProject = async () => {
             try {
-                const response = await fetch(`http://localhost:5000/Project/getProject/${email}`);
+                const response = await fetch(`https://task-manager-launchpad.onrender.com/Project/getProject/${email}`);
                 if (!response.ok) {
                     if (response.status === 404) {
                         setProject([]);

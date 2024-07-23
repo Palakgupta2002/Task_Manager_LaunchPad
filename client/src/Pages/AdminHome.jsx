@@ -20,6 +20,7 @@ const AdminHome = () => {
     const [searchMng, setSearchMng] = useState('');
     const [isManager, setManager] = useState("false")
     const [email,setEmail]=useState(null)
+    const [searchUser,setSearchUser]=useState('')
 
 
     const handleSortChange = (e) => {
@@ -42,6 +43,7 @@ const AdminHome = () => {
           WebkitBackgroundClip: 'text',
           color: 'transparent'
         }
+       
 
     return (
         <div className=''>
@@ -61,7 +63,7 @@ const AdminHome = () => {
                        <div>
                        <div className='flex m-5 justify-between h-10 gap-10'>
                     
-                            <input className='w-80' type='text' placeholder='Search'/>
+                            <input onChange={(e)=>setSearchUser(e.target.value)} className='w-80' type='text' placeholder='Search here'/>
                           
                             <Button outline className='text-nowrap' onClick={() => setManager(!isManager)}>
                             {
@@ -80,14 +82,14 @@ const AdminHome = () => {
                       
                             <div className=''>
                             {
-                                isManager ? <ShowManager setEmail={setEmail} /> : <ShowUser setEmail={setEmail} />
+                                isManager ? <ShowManager setEmail={setEmail} searchData={searchUser} /> : <ShowUser setEmail={setEmail} searchData={searchUser} />
                             }
                         </div>
                         </div>
                     </div>
                 </div>
             <div className='w-full md:rounded-lg text-black w-1/2'>
-            <AdminProjectUI isManager={isManager} email={email}/> 
+            <AdminProjectUI searchData={searchUser}  isManager={isManager} email={email}/> 
             </div>
             </div>
         </div>

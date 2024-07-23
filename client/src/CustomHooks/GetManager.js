@@ -8,7 +8,7 @@ const useManagerData = (email) => {
     const fetchUserData = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/ManagerData/getOneManager/${email}`,
+          `https://task-manager-launchpad.onrender.com/ManagerData/getOneManager/${email}`,
         )
         if (response.ok) {
           const data = await response.json()

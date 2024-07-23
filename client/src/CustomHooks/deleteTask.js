@@ -1,7 +1,7 @@
 const deletetask = async ({ email, taskId }) => {
   try {
     const response = await fetch(
-      `http://localhost:5000/deleteTask/${email}/tasks/${taskId}`,
+      `https://task-manager-launchpad.onrender.com/deleteTask/${email}/tasks/${taskId}`,
       {
         method: 'DELETE',
       },

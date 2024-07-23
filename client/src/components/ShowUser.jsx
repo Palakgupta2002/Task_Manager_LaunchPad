@@ -2,15 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { Table } from "flowbite-react";
 import { Link } from 'react-router-dom';
 
-const ShowUser = ({setEmail}) => {
+const ShowUser = ({setEmail,searchData}) => {
     const [user, setUser] = useState([]);
+    const [filterUser,setFilterUser]=useState([])
 
     const fetchDataFun = async () => {
         try {
-            const fetchAPI = await fetch("http://localhost:5000/user/");
+            const fetchAPI = await fetch("https://task-manager-launchpad.onrender.com/user/");
             if (fetchAPI.ok) {
                 const jsonData = await fetchAPI.json()
-                setUser(jsonData.user)
+                setUser(jsonData?.user)
+                setFilterUser(jsonData?.user);
                 console.log("successful data comes", jsonData.user)
             }
         }
@@ -22,6 +24,17 @@ const ShowUser = ({setEmail}) => {
     useEffect(() => {
         fetchDataFun()
     }, []);
+    useEffect(() => {
+        if (searchData) {
+            const filteredData = user?.filter(manager => 
+                manager?.UserUniqueID?.toLowerCase()?.includes(searchData.toLowerCase())
+            );
+            setFilterUser(filteredData);
+        } else {
+            setFilterUser(user);
+        }
+    }, [searchData, user]);
+
 
     return (
         <div className='bg-slate-700 '>
@@ -34,7 +47,7 @@ const ShowUser = ({setEmail}) => {
                 </Table.Head>
                 <Table.Body className="divide-y bg-slate-600">
                     {/* Map over user data and render table rows */}
-                    {user.map((ele) => (
+                    {filterUser?.map((ele) => (
                         <Table.Row key={ele.UserUniqueID} className="bg-white dark:border-gray-700 dark:bg-gray-800">
                             <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
                                 {ele.UserUniqueID}

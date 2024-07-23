@@ -16,7 +16,7 @@ const ViewManagerDetails = () => {
     useEffect(() => {
         const getManager = async () => {
             try {
-                const response = await fetch(`http://localhost:5000/ManagerData/getOneManager/${id}`)
+                const response = await fetch(`https://task-manager-launchpad.onrender.com/ManagerData/getOneManager/${id}`)
                 if (!response.ok) {
                     throw new Error('Failed to fetch manager')
                 }
@@ -32,7 +32,7 @@ const ViewManagerDetails = () => {
     useEffect(() => {
         const getProject = async () => {
             try {
-                const response = await fetch(`http://localhost:5000/Project/getProject/${id}`)
+                const response = await fetch(`https://task-manager-launchpad.onrender.com/Project/getProject/${id}`)
                 if (!response.ok) {
                     throw new Error('Failed to fetch project')
                 }

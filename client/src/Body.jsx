@@ -27,26 +27,26 @@ const Body = () => {
       <Routes>
           {authenticated ? (
             <>
-              <Route path="/" element={<Navigate to="/Home" />} />
-              <Route path="/Home/:email" element={<Home />} />
-              <Route path='/ManagerHome' element={<ManagerHome/>} />
-              <Route path='/Projectdetails/:id' element={<ProjectDetails/>}/>
-              <Route path='/UserDetails/:email' element={<ShowUserDetails/>} />
+              <Route key='/Home' path="/" element={<Navigate to="/Home" />} />
+              <Route key='/Home/:email' path="/Home/:email" element={<Home />} />
+              <Route  key='/ManagerHome' path='/ManagerHome' element={<ManagerHome/>} />
+              <Route key='/Projectdetails/:id' path='/Projectdetails/:id' element={<ProjectDetails/>}/>
+              <Route key='/UserDetails/:email' path='/UserDetails/:email' element={<ShowUserDetails/>} />
             </>
           ) : (
             <>
-              <Route path="/SignUp" element={<SignUp />} />
-              <Route path="/" element={<SignIn />} />
+              <Route key='/SignUp' path="/SignUp" element={<SignUp />} />
+              <Route key='/' path="/" element={<SignIn />} />
               {isadmin ? (
                 <>
-                  <Route path="/AdminHome" element={<AdminHome />} />
-                  <Route path="/adUserVisit/:email" element={<UserDetails />} />
-                  <Route path='/viewManager/:id' element={<ViewManagerDetails/>}/>
-                  <Route path='/Projectdetails/:id' element={<ProjectDetails/>}/>
-                  <Route path='/UserDetails/:email' element={<ShowUserDetails/>} />
+                  <Route key='/AdminHome' path="/AdminHome" element={<AdminHome />} />
+                  <Route key='/adUserVisit/:email' path="/adUserVisit/:email" element={<UserDetails />} />
+                  <Route key='/viewManager/:id' path='/viewManager/:id' element={<ViewManagerDetails/>}/>
+                  <Route key='/Projectdetails/:id' path='/Projectdetails/:id' element={<ProjectDetails/>}/>
+                  <Route key='/UserDetails/:email' path='/UserDetails/:email' element={<ShowUserDetails/>} />
                 </>
               ) : (
-                <Route path="/AdminLogin" element={<AdminLogin/>} />
+                <Route key='/AdminLogin' path="/AdminLogin" element={<AdminLogin/>} />
               )}
             </>
           )}

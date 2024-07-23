@@ -32,10 +32,10 @@ const SignIn = () => {
       let bodyData = {};
 
       if (uniqueId.includes("manager")) {
-        apiUrl = `http://localhost:5000/ManagerData/login`;
+        apiUrl = `https://task-manager-launchpad.onrender.com/ManagerData/login`;
         bodyData = { Memail: email, Mpassword: password };
       } else if (uniqueId.includes("user")) {
-        apiUrl = 'http://localhost:5000/login/signIn';
+        apiUrl = 'https://task-manager-launchpad.onrender.com/login/signIn';
         bodyData = { email, password };
       } else {
         setErrorMessage("Invalid unique id");
@@ -91,7 +91,7 @@ const SignIn = () => {
       </div>
       <div className='md:flex justify-center '>
         <div>
-        <div className="mt-8">
+        {/* <div className="mt-8">
       <p className="text-lg font-bold">Dummy Credentials</p>
       <div className='grid md:grid-cols-2 gap-4 mt-4'>
         <div className='shadow-lg border border-gray-200 p-4'>
@@ -105,7 +105,7 @@ const SignIn = () => {
           <p>Password: Palak</p>
         </div>
       </div>
-    </div>
+    </div> */}
           <div className='bg-white shadow-md rounded-md  max-w-md mx-auto p-6'>
             <h2 className="text-2xl font-semibold mb-4">Sign In</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
