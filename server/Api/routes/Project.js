@@ -111,7 +111,7 @@ router.post('/countProjectsByManagerAndYear', async (req, res) => {
                 });
                
                 projectCountsByYear[year] = projectsOfYear.length;
-                console.log(projectsOfYear, "hello");
+              
             }
         }
 
