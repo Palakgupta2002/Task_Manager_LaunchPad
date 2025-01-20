@@ -27,7 +27,6 @@ const AddManager = () => {
         body: JSON.stringify(formData)
       });
       const data = await response.json();
-      console.log(data); // Handle success response
       alert('Manager Added Succesfully');
       setOpenModal(false)
 

@@ -10,12 +10,12 @@ const ShowManager = ({setEmail,searchData}) => {
 
     const fetchManagers=async ()=>{
         try{
-            const response=await fetch("https://task-manager-launchpad.onrender.com/ManagerData/");
+            const response=await fetch("http://localhost:5000/ManagerData/");
             if(!response.ok){
                 throw new Error('Failed to fetch managers');
             }
             const data = await response.json();
-            console.log(data)
+          
             setManagers(data?.managers);
             setFilterManager(data?.manager);
         }

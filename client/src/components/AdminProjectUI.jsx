@@ -10,16 +10,16 @@ const AdminProjectUI = ({ isManager, email }) => {
     const [userData, setUserData] = useState(null);
     const [project, setProject] = useState(null);
     const [search, setSearch] = useState("");
-    console.log(email, "project email");
+
 
     useEffect(() => {
         const fetchUserData = async () => {
             try {
                 let apiUrl = '';
                 if (isManager) {
-                    apiUrl = `https://task-manager-launchpad.onrender.com/ManagerData/getOneManager/${email}`;
+                    apiUrl = `http://localhost:5000/ManagerData/getOneManager/${email}`;
                 } else {
-                    apiUrl = `https://task-manager-launchpad.onrender.com/user/users/${email}`;
+                    apiUrl = `http://localhost:5000/user/users/${email}`;
                 }
 
                 const response = await fetch(apiUrl);
@@ -45,11 +45,11 @@ const AdminProjectUI = ({ isManager, email }) => {
     useEffect(() => {
         const getProject = async () => {
             try {
-                const response = await fetch(`https://task-manager-launchpad.onrender.com/Project/getProject/${email}`);
+                const response = await fetch(`http://localhost:5000/Project/getProject/${email}`);
                 if (!response.ok) {
                     if (response.status === 404) {
                         setProject([]);
-                        console.log("Manager does not have any projects");
+                      
                     } else {
                         throw new Error('Failed to fetch project');
                     }
@@ -58,7 +58,7 @@ const AdminProjectUI = ({ isManager, email }) => {
                     if (data.projects) {
                         setProject(data.projects);
                     }
-                    console.log(project, "hello ji ");
+                  
                 }
             } catch (error) {
                 console.error('Error fetching project', error);

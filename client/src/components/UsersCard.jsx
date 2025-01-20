@@ -12,10 +12,10 @@ const UsersCard = ({ user }) => {
     const handleDelete = async () => {
         try {
             await deleteUser(user.email);
-            // console.log("User deleted successfully");
+       
         } catch (error) {
             console.error("Error deleting user:", error);
-            // Handle error if needed
+          
         }
     };
 

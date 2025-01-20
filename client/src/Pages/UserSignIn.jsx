@@ -32,10 +32,10 @@ const SignIn = () => {
       let bodyData = {};
 
       if (uniqueId.includes("manager")) {
-        apiUrl = `https://task-manager-launchpad.onrender.com/ManagerData/login`;
+        apiUrl = `http://localhost:5000/ManagerData/login`;
         bodyData = { Memail: email, Mpassword: password };
       } else if (uniqueId.includes("user")) {
-        apiUrl = 'https://task-manager-launchpad.onrender.com/login/signIn';
+        apiUrl = 'http://localhost:5000/login/signIn';
         bodyData = { email, password };
       } else {
         setErrorMessage("Invalid unique id");
@@ -50,7 +50,7 @@ const SignIn = () => {
       });
 
       const data = await res.json();
-      console.log(data.isAdmin, "hello ")
+     
       if (res.ok) {
         localStorage.setItem('token', data.token);
         localStorage.setItem('Email', data.email);
@@ -69,7 +69,7 @@ const SignIn = () => {
           navigate('/ManagerHome')
           handleRefresh()
         }
-        console.log('Sign-in successful');
+        
         alert("Sign In successfully");
       } else {
         // Handle error

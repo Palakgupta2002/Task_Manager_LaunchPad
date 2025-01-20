@@ -17,7 +17,7 @@ const[taskCount,setTaskCount]=useState(0)
 
 
   const managerData = useManagerData(unquotedEmail)
-  console.log(managerData,"hello")
+ 
 
   const [graphicalView, setGraphicalView] = useState(false)
 

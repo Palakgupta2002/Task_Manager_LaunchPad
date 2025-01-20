@@ -20,7 +20,7 @@ const AdminLogin = () => {
     e.preventDefault();
     try {
       setLoading(true)
-      const response = await fetch('https://task-manager-launchpad.onrender.com/admin/Adlogin', {
+      const response = await fetch('http://localhost:5000/admin/Adlogin', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

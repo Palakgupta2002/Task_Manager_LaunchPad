@@ -10,9 +10,7 @@ const UserDetails = () => {
     const param= useParams();
     
     const userData = useUserData(param?.email); 
-    console.log(param,"hello param")
    
-  
     let initials = '';
     if (userData && userData.username) {
         initials = userData.username.substring(0, 2).toUpperCase();

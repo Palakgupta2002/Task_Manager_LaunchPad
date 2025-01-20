@@ -9,7 +9,7 @@ const useUserData = (email) => {
     const fetchUserData = async () => {
       try {
         const response = await fetch(
-          `https://task-manager-launchpad.onrender.com/user/users/${email}`,
+          `http://localhost:5000/user/users/${email}`,
         )
         if (response.ok) {
           const data = await response.json()

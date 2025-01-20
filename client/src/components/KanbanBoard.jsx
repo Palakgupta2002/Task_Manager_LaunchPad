@@ -179,7 +179,7 @@ const KanbanBoard = ({ projectData }) => {
 
   const fetchTaskData = async () => {
     try {
-      const fetchApi = await fetch(`https://task-manager-launchpad.onrender.com/task/${id}`);
+      const fetchApi = await fetch(`http://localhost:5000/task/${id}`);
       const jsonData = await fetchApi.json();
 
       setTaskData(jsonData);
@@ -193,7 +193,7 @@ const KanbanBoard = ({ projectData }) => {
   }, [taskData]);
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(`https://task-manager-launchpad.onrender.com/task/tasks/${id}`, {
+      const response = await fetch(`http://localhost:5000/task/tasks/${id}`, {
         method: 'DELETE'
       });
 
@@ -257,7 +257,7 @@ const KanbanBoard = ({ projectData }) => {
 
   const handleUpdateStatus = async (taskid,email) => {
     try {
-      const response = await fetch(`https://task-manager-launchpad.onrender.com/task/${email}/${id}/${taskid}/status`, {
+      const response = await fetch(`http://localhost:5000/task/${email}/${id}/${taskid}/status`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -358,7 +358,7 @@ const KanbanBoard = ({ projectData }) => {
                     <Table.Cell>{task.status1}</Table.Cell>
                     <Table.Cell>{task.dueDate.slice(0, 10)}</Table.Cell>
                     <Table.Cell>{task.email}</Table.Cell>
-                    <Table.Cell>{task._id}</Table.Cell>
+                    {/* <Table.Cell>{task._id}</Table.Cell> */}
                     <Table.Cell>
                       {isUser === "true" ? (
 

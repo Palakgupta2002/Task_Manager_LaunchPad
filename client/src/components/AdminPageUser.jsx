@@ -5,9 +5,7 @@ import Piechart from './PieChart';
 
 const AdminPageUser = ({search,sortBy}) => {
     const userData = useGetAllUserData(search, sortBy);
-    console.log(userData,"hello user ji")
-
-    // console.log(userData, "hello userdata");
+ 
     return (
         <div className='flex flex-wrap m-8 gap-5'>
             {

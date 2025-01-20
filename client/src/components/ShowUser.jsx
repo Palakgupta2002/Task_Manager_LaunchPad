@@ -8,12 +8,12 @@ const ShowUser = ({setEmail,searchData}) => {
 
     const fetchDataFun = async () => {
         try {
-            const fetchAPI = await fetch("https://task-manager-launchpad.onrender.com/user/");
+            const fetchAPI = await fetch("http://localhost:5000/user/");
             if (fetchAPI.ok) {
                 const jsonData = await fetchAPI.json()
                 setUser(jsonData?.user)
                 setFilterUser(jsonData?.user);
-                console.log("successful data comes", jsonData.user)
+                
             }
         }
         catch (err) {

@@ -1,6 +1,6 @@
 const deleteUser = async (email) => {
   try {
-    const response = await fetch(`https://task-manager-launchpad.onrender.com/deleteUser/${email}`, {
+    const response = await fetch(`http://localhost:5000/deleteUser/${email}`, {
       method: 'DELETE',
     })
     if (!response.ok) {

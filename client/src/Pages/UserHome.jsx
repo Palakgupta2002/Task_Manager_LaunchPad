@@ -13,13 +13,13 @@ import hiiHand from "../assest/handHii.gif"
 import Card from '../components/Card';
 
 const Home = () => {
-  // console.log(UserData,"hello")
+
   const Email = localStorage.getItem("Email"); 
   const email = JSON.stringify(Email);
   const unquotedEmail = email.substring(1, email.length - 1);
 
   const userData = useUserData(unquotedEmail);
-  console.log(unquotedEmail,"hello userdata")
+ 
   return (
     <div>
    <Header/>

@@ -14,8 +14,7 @@ const SignUp = () => {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value.trim() });
   };
-  // console.log(formData)
-
+ 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.username || !formData.email || !formData.password) {
@@ -24,18 +23,18 @@ const SignUp = () => {
     try {
       setLoading(true);
       setErrorMessage(null);
-      const res = await fetch('https://task-manager-launchpad.onrender.com/auth/signUp', {
+      const res = await fetch('http://localhost:5000/auth/signUp', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
       const data = await res.json();
-      console.log(res, "hello response")
+      
       if (res.ok) {
         setFormData({});
         setLoading(false);
         alert("Sign up succesfully")
-        navigate('/signIn')
+        setOpenModal(false)
         
       } else {
         setErrorMessage(data.message);
@@ -46,8 +45,7 @@ const SignUp = () => {
       setLoading(false);
     }
   };
-  console.log(errorMessage, "hello error")
-
+  
   return (
     <>
       <button  className="text-3xl " outline onClick={() => setOpenModal(true)}>+</button>

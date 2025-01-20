@@ -19,9 +19,6 @@ const ProjectDetails = () => {
     const isUser = localStorage.getItem("userLog");
 
    
-
-
-    console.log(userData, "hello userdata")
     const handleviewDetails = (email) => {
         setuseremail(email)
         setOpenModal(true)
@@ -34,11 +31,10 @@ const ProjectDetails = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(`https://task-manager-launchpad.onrender.com/Project/getProjectDetails/${id}`);
+                const response = await fetch(`http://localhost:5000/Project/getProjectDetails/${id}`);
                 if (response.ok) {
                     const data = await response.json();
-                    console.log(data.projectDetails[0], "Received project details");
-                    console.log("hello")
+                 
                     // if (data.projectDetails && data.projectDetails.length > 0) {
                     //     setProjectData(data.projectDetails[0]);
                     // }

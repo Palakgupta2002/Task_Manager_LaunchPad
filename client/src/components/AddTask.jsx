@@ -10,8 +10,6 @@ const AddTask=({email1})=> {
   const [openModal, setOpenModal] = useState(false);
 const id=useParams()
 
-  console.log(email1,"hello email 1")
-
   return (
     <>
       <button className='text-3xl pl-10' onClick={() => setOpenModal(true)}> Add Task +</button>

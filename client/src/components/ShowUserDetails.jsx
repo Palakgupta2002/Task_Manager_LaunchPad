@@ -9,14 +9,14 @@ const ShowUserDetails = () => {
     const [userEmail,setUserEmail]=useState()
     
     const userData=useUserData(userEmail)
-    console.log(userData,"hello user show")
+    
     const fetchApiFun = async () => {
         try {
-            const fetchApi = await fetch(`https://task-manager-launchpad.onrender.com/user/users/${email}`)
+            const fetchApi = await fetch(`http://localhost:5000/user/users/${email}`)
             if (fetchApi.ok) {
                 const apiJson = await fetchApi.json();
                 setUser(apiJson)
-                console.log(apiJson, "hello");
+                
             }
 
         } catch (err) {

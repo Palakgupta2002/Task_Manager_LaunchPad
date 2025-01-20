@@ -5,7 +5,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 
 
 const TaskForm = ({ setOpenModal, email,projectId}) => {
-  console.log(projectId,"hello project id")
+
   
   const [formData, setFormData] = useState({
     title: '',
@@ -34,13 +34,13 @@ const TaskForm = ({ setOpenModal, email,projectId}) => {
     try {
       setLoading(true);
       setErrorMessage(null);
-      const res = await fetch(`https://task-manager-launchpad.onrender.com/task/${email}/${projectId.id}/tasks`, {
+      const res = await fetch(`http://localhost:5000/task/${email}/${projectId.id}/tasks`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
       const data = await res.json();
-      console.log(data,"hello data")
+    
       
       if (res.ok) {
         setFormData({});

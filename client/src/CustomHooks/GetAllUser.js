@@ -6,7 +6,7 @@ const useGetAllUserData = (search, sortBy) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('https://task-manager-launchpad.onrender.com/allUser/users')
+        const response = await fetch('http://localhost:5000/allUser/users')
         if (response.ok) {
           let data = await response.json()
 
